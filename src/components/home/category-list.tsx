@@ -33,13 +33,28 @@ const CategoryList: React.FC = () => {
       id: 6,
       name: 'Nội thất',
       image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
+    },
+    {
+      id: 444,
+      name: 'Thời trang',
+      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-deals.jpg'
+    },
+    {
+      id: 555,
+      name: 'Công nghệ',
+      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
+    },
+    {
+      id: 666,
+      name: 'Nội thất',
+      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
     }
   ];
 
   return (
     <Box bgColor="#FFF" p={4} mt={8}>
       <HomeSection title="Danh mục sản phẩm" />
-      <Flex align="center" gap={10}>
+      <Flex align="center" gap={10} justify="space-between">
         {DATA.map((item) => {
           const { id, name, image } = item;
           return (

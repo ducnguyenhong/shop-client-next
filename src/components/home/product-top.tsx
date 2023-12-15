@@ -94,7 +94,7 @@ const ProductTop: React.FC = () => {
               transitionDuration="250ms"
             >
               <Link href={'/'}>
-                <AspectRatio ratio={4 / 3}>
+                <AspectRatio ratio={1 / 1}>
                   <Image src={image} alt={name} objectFit="contain" w="full" />
                 </AspectRatio>
                 <Box p={4}>

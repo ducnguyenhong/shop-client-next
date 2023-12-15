@@ -18,7 +18,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="vi">
       <body className={inter.className}>
         <Providers>
-          <Box bgColor="#F2F2F2" minH="100vh">
+          <Box
+            // bgColor="#F2F2F2"
+            minH="100vh"
+          >
             <Header />
             <Box mt={HEADER_HEIGHT}>
               <Box px={PX_ALL}>{children}</Box>

@@ -2,6 +2,8 @@
 
 import { HEADER_HEIGHT, PX_ALL } from '@/utils/const';
 import { Box, Flex, Icon, Input, Text } from '@chakra-ui/react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { memo } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { IoCart } from 'react-icons/io5';
@@ -9,7 +11,7 @@ import { IoCart } from 'react-icons/io5';
 const Header: React.FC = () => {
   return (
     <Flex
-      bgColor="#28714d"
+      bgColor="#3f9121"
       h={HEADER_HEIGHT}
       pos="fixed"
       top={0}
@@ -18,9 +20,14 @@ const Header: React.FC = () => {
       align="center"
       px={PX_ALL}
       color="#FFF"
-      gap={5}
+      gap={10}
+      zIndex={1000}
     >
-      <Box>logo</Box>
+      <Box mr={10}>
+        <Link href="/">
+          <Image src="/images/logo-white.png" alt="logo" width={55} height={35} />
+        </Link>
+      </Box>
 
       <Flex align="center" gap={3}>
         <Flex align="center" gap={1.5}>
