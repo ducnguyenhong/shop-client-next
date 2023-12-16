@@ -52,7 +52,7 @@ const CategoryList: React.FC = () => {
   ];
 
   return (
-    <Box bgColor="#FFF" p={4} mt={8}>
+    <Box bgColor="#FFF" mt={8}>
       <HomeSection title="Danh mục sản phẩm" />
       <Flex align="center" gap={10} justify="space-between">
         {DATA.map((item) => {

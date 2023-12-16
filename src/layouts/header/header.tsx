@@ -1,6 +1,6 @@
 'use client';
 
-import { HEADER_HEIGHT, PX_ALL } from '@/utils/const';
+import { HEADER_HEIGHT } from '@/utils/const';
 import { Box, Flex, Icon, Input, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,32 +11,32 @@ import { IoCart } from 'react-icons/io5';
 const Header: React.FC = () => {
   return (
     <Flex
-      bgColor="#3f9121"
+      bgColor="#0B5052"
       h={HEADER_HEIGHT}
       pos="fixed"
       top={0}
       left={0}
       w="full"
       align="center"
-      px={PX_ALL}
+      px={60}
       color="#FFF"
       gap={10}
       zIndex={1000}
     >
       <Box mr={10}>
         <Link href="/">
-          <Image src="/images/logo-white.png" alt="logo" width={55} height={35} />
+          <Image src="/images/logo-white.png" alt="logo" width={50} height={50} />
         </Link>
       </Box>
 
       <Flex align="center" gap={3}>
         <Flex align="center" gap={1.5}>
-          <Text>Danh mục</Text>
+          <Text fontWeight={600}>Danh mục</Text>
           <Icon as={FiChevronDown} />
         </Flex>
 
         <Flex align="center" gap={1.5}>
-          <Text>Tin tức</Text>
+          <Text fontWeight={600}>Tin tức</Text>
           <Icon as={FiChevronDown} />
         </Flex>
       </Flex>
