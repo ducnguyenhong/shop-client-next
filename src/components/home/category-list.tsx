@@ -10,11 +10,6 @@ const CategoryList: React.FC = () => {
       image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-deals.jpg'
     },
     {
-      id: 2,
-      name: 'Công nghệ',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
-    },
-    {
       id: 3,
       name: 'Nội thất',
       image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'

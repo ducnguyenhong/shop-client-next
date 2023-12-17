@@ -1,39 +1,159 @@
+'use client';
+
 import { PX_ALL } from '@/utils/const';
-import { Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
+import { Box, Link as ChakraLink, Flex, Grid, GridItem, Icon, Text } from '@chakra-ui/react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { memo } from 'react';
+import { FaFacebookSquare, FaTiktok } from 'react-icons/fa';
+import { SiShopee } from 'react-icons/si';
 
 const Footer: React.FC = () => {
+  const SOCIAL = [
+    {
+      title: 'Facebook',
+      icon: FaFacebookSquare,
+      url: '/',
+      size: 17
+    },
+    {
+      title: 'Tiktok',
+      icon: FaTiktok,
+      url: '/'
+    },
+    {
+      title: 'Shopee',
+      icon: SiShopee,
+      url: '/'
+    }
+  ];
+
+  const ABOUT_US = [
+    {
+      title: 'Tin tức',
+      href: '/tin-tuc'
+    },
+    {
+      title: 'Liên hệ',
+      href: '/lien-he'
+    },
+    {
+      title: 'Về chúng tôi',
+      href: '/ve-chung-toi'
+    }
+  ];
+
+  const SEVICES = [
+    {
+      title: 'Chính sách đổi trả',
+      href: '/chinh-sach-doi-tra'
+    },
+    {
+      title: 'Liên hệ',
+      href: '/lien-he'
+    },
+    {
+      title: 'Về chúng tôi',
+      href: '/ve-chung-toi'
+    }
+  ];
+
+  const MORE_INFO = [
+    {
+      title: 'Điều khoản sử dụng',
+      href: '/dieu-khoan-su-dung'
+    },
+    {
+      title: 'Liên hệ',
+      href: '/lien-he'
+    },
+    {
+      title: 'Về chúng tôi',
+      href: '/ve-chung-toi'
+    }
+  ];
+
   return (
     <Box mt={20} px={PX_ALL} bgColor="#f2f2f2" pt={20}>
       <Grid templateColumns="repeat(5, 1fr)">
         <GridItem colSpan={2}>
-          <Image src="/images/logo.png" alt="logo" width={100} height={100} />
-          <Text>Gia Dụng Mới</Text>
-          <Text>Mua sắm đồ gia dụng nhanh chóng, dễ dàng</Text>
+          <Image src="/images/logo.png" alt="logo" width={80} height={80} />
+          <Text fontWeight={700} fontSize={16} mt={3}>
+            Gia Dụng Mới
+          </Text>
+          <Text fontWeight={500} mt={1}>
+            Mua sắm đồ gia dụng nhanh chóng, dễ dàng
+          </Text>
+
+          <Flex align="center" mt={4} gap={7}>
+            {SOCIAL.map((item) => {
+              const { title, icon, url, size = 15 } = item;
+              return (
+                <ChakraLink href={url} key={title} mt={size > 15 ? 0.5 : 0}>
+                  <Icon as={icon} fontSize={size} color="#7C818B" />
+                </ChakraLink>
+              );
+            })}
+          </Flex>
         </GridItem>
 
         <GridItem colSpan={1}>
-          <Text>Về chúng tôi</Text>
-          <Flex direction="column">aaaaaaaaaa</Flex>
+          <Text fontWeight={700} fontSize={16}>
+            Về chúng tôi
+          </Text>
+          <Flex direction="column" gap={3} mt={6}>
+            {ABOUT_US.map((item) => {
+              const { title, href } = item;
+              return (
+                <Link href={href} key={title}>
+                  <Text fontWeight={600} color="#828282">
+                    {title}
+                  </Text>
+                </Link>
+              );
+            })}
+          </Flex>
         </GridItem>
 
         <GridItem colSpan={1}>
-          <Text>Dịch vụ</Text>
-          <Flex direction="column">aaaaaaaaaa</Flex>
+          <Text fontWeight={700} fontSize={16}>
+            Dịch vụ
+          </Text>
+          <Flex direction="column" gap={3} mt={6}>
+            {SEVICES.map((item) => {
+              const { title, href } = item;
+              return (
+                <Link href={href} key={title}>
+                  <Text fontWeight={600} color="#828282">
+                    {title}
+                  </Text>
+                </Link>
+              );
+            })}
+          </Flex>
         </GridItem>
 
         <GridItem colSpan={1}>
-          <Text>Về chúng tôi</Text>
-          <Flex direction="column">
-            <Text>Thông tin khác</Text>
-            <Flex direction="column">aaaaaaaaaa</Flex>
+          <Text fontWeight={700} fontSize={16}>
+            Thông tin khác
+          </Text>
+          <Flex direction="column" gap={3} mt={6}>
+            {MORE_INFO.map((item) => {
+              const { title, href } = item;
+              return (
+                <Link href={href} key={title}>
+                  <Text fontWeight={600} color="#828282">
+                    {title}
+                  </Text>
+                </Link>
+              );
+            })}
           </Flex>
         </GridItem>
       </Grid>
 
-      <Flex mt={10} justify="center" pb={5}>
-        <Text>© Copyright 2024 - Bản quyền thuộc về GiaDungMoi</Text>
+      <Flex mt={16} justify="center" pb={5}>
+        <Text fontWeight={600}>© Copyright 2024 - Bản quyền thuộc về GiaDungMoi</Text>
       </Flex>
     </Box>
   );
