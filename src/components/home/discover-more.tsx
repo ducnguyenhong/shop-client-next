@@ -50,7 +50,7 @@ const DiscoverMore: React.FC = () => {
   ];
 
   return (
-    <Box mt={8}>
+    <Box mt={20}>
       <HomeSection title="Khám phá thêm" />
       <Grid templateColumns="repeat(6, 1fr)" gap={4}>
         {DATA.map((item) => {

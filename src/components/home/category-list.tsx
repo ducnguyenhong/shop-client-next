@@ -20,11 +20,6 @@ const CategoryList: React.FC = () => {
       image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
     },
     {
-      id: 4,
-      name: 'Thời trang',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-deals.jpg'
-    },
-    {
       id: 5,
       name: 'Công nghệ',
       image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
@@ -35,11 +30,6 @@ const CategoryList: React.FC = () => {
       image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
     },
     {
-      id: 444,
-      name: 'Thời trang',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-deals.jpg'
-    },
-    {
       id: 555,
       name: 'Công nghệ',
       image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
@@ -48,13 +38,23 @@ const CategoryList: React.FC = () => {
       id: 666,
       name: 'Nội thất',
       image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
+    },
+    {
+      id: 6363,
+      name: 'Công nghệ',
+      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
+    },
+    {
+      id: 65376468766,
+      name: 'Nội thất',
+      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
     }
   ];
 
   return (
-    <Box bgColor="#FFF" mt={8}>
+    <Box bgColor="#FFF" mt={10}>
       <HomeSection title="Danh mục sản phẩm" />
-      <Flex align="center" gap={10} justify="space-between">
+      <Flex align="center" gap={10} justify="space-between" mt={4}>
         {DATA.map((item) => {
           const { id, name, image } = item;
           return (

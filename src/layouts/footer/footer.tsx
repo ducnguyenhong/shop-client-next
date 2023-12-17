@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
         </GridItem>
       </Grid>
 
-      <Flex mt={10} justify="center" pb={8}>
+      <Flex mt={10} justify="center" pb={5}>
         <Text>© Copyright 2024 - Bản quyền thuộc về GiaDungMoi</Text>
       </Flex>
     </Box>

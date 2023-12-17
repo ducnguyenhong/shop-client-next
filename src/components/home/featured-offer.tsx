@@ -4,7 +4,7 @@ import HomeSection from './home-section';
 
 const FeaturedOffer: React.FC = () => {
   return (
-    <Box bgColor="#FFF" mt={8}>
+    <Box bgColor="#FFF" mt={20}>
       <HomeSection title="Ưu đãi nổi bật" />
 
       <Flex gap={3}>

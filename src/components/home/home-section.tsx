@@ -1,4 +1,4 @@
-import { Heading } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import { memo } from 'react';
 
 interface SectionProps {
@@ -7,9 +7,9 @@ interface SectionProps {
 
 const HomeSection: React.FC<SectionProps> = ({ title }) => {
   return (
-    <Heading as="h3" fontSize={24} mb={3} fontWeight={500}>
+    <Text fontSize={24} mb={3} fontWeight={500}>
       {title}
-    </Heading>
+    </Text>
   );
 };
 
