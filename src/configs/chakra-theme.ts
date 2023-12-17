@@ -15,7 +15,8 @@ const ComponentsTheme = {
   components: {
     Text: {
       baseStyle: {
-        fontSize: '14px'
+        fontSize: '14px',
+        color: '#1d2128'
       }
     }
   }
@@ -23,7 +24,7 @@ const ComponentsTheme = {
 
 const ColorConfig = {
   colors: {
-    // primary: { 1: '#40407a', 2: '#353564', 3: '#2c2c54' },
+    main: { 1: '#0B5052' }
   }
 };
 

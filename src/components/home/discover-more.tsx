@@ -1,6 +1,6 @@
-import { AspectRatio, Box, Grid, GridItem, Image, Text } from '@chakra-ui/react';
-import Link from 'next/link';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { memo } from 'react';
+import ProductItem from '../common/product-item';
 import HomeSection from './home-section';
 
 const DiscoverMore: React.FC = () => {
@@ -53,29 +53,11 @@ const DiscoverMore: React.FC = () => {
     <Box mt={20}>
       <HomeSection title="Khám phá thêm" />
       <Grid templateColumns="repeat(6, 1fr)" gap={4}>
-        {DATA.map((item) => {
-          const { id, name, image } = item;
-          return (
-            <GridItem
-              key={id}
-              bgColor="#FFF"
-              boxShadow="sm"
-              borderColor="#FFF"
-              borderWidth="1px solid"
-              _hover={{ boxShadow: 'base', borderColor: 'green' }}
-              transitionDuration="250ms"
-            >
-              <Link href={'/'}>
-                <AspectRatio ratio={1 / 1}>
-                  <Image src={image} alt={name} objectFit="contain" w="full" />
-                </AspectRatio>
-                <Box p={4}>
-                  <Text>{name}</Text>
-                </Box>
-              </Link>
-            </GridItem>
-          );
-        })}
+        {DATA.map((item) => (
+          <GridItem key={item.id}>
+            <ProductItem data={item} />
+          </GridItem>
+        ))}
       </Grid>
     </Box>
   );

@@ -3,11 +3,11 @@ import Header from '@/layouts/header';
 import { HEADER_HEIGHT, PX_ALL } from '@/utils/const';
 import { Box } from '@chakra-ui/react';
 import type { Metadata } from 'next';
-import { Lexend_Deca } from 'next/font/google';
+import { Quicksand } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
 
-const font = Lexend_Deca({ subsets: ['latin', 'vietnamese'] });
+const font = Quicksand({ subsets: ['latin', 'vietnamese'] });
 
 export const metadata: Metadata = {
   title: 'Gia Dụng Mới - Mua sắm đồ gia dụng nhanh chóng, dễ dàng',

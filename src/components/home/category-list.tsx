@@ -60,7 +60,7 @@ const CategoryList: React.FC = () => {
           return (
             <Flex key={id} align="center" justify="center" gap={2} direction="column">
               <Image src={image} alt={name} objectFit="contain" w={20} h={20} borderRadius="full" />
-              <Text>{name}</Text>
+              <Text fontWeight={600}>{name}</Text>
             </Flex>
           );
         })}

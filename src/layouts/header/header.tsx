@@ -11,7 +11,7 @@ import { IoCart } from 'react-icons/io5';
 const Header: React.FC = () => {
   return (
     <Flex
-      bgColor="#0B5052"
+      bgColor="main.1"
       h={HEADER_HEIGHT}
       pos="fixed"
       top={0}
@@ -19,7 +19,6 @@ const Header: React.FC = () => {
       w="full"
       align="center"
       px={PX_ALL}
-      color="#FFF"
       zIndex={1000}
       gap={10}
     >
@@ -32,16 +31,22 @@ const Header: React.FC = () => {
 
         <Flex align="center" gap={10}>
           <Flex align="center" gap={1.5}>
-            <Text fontWeight={600}>Danh mục</Text>
-            <Icon as={FiChevronDown} />
+            <Text fontWeight={600} color="#FFF">
+              Danh mục
+            </Text>
+            <Icon as={FiChevronDown} color="#b9b9b9" />
           </Flex>
 
           <Flex align="center" gap={1.5}>
-            <Text fontWeight={600}>Giảm giá</Text>
+            <Text fontWeight={600} color="#FFF">
+              Giảm giá
+            </Text>
           </Flex>
 
           <Flex align="center" gap={1.5}>
-            <Text fontWeight={600}>Tin tức</Text>
+            <Text fontWeight={600} color="#FFF">
+              Tin tức
+            </Text>
           </Flex>
         </Flex>
 
@@ -53,6 +58,7 @@ const Header: React.FC = () => {
             placeholder="Tìm kiếm sản phẩm nhanh chóng..."
             color="#292D32"
             pr="68px"
+            fontWeight={600}
           />
           <Button zIndex={5} pos="absolute" top={0} bottom={0} my="auto" right="3px" bgColor="#FF9E20" borderRadius={4}>
             <Icon as={FiSearch} color="#FFF" fontSize={20} />
@@ -60,16 +66,20 @@ const Header: React.FC = () => {
         </Flex>
 
         <Flex align="center">
-          <Text>Đăng ký</Text>
+          <Text fontWeight={600} color="#FFF">
+            Đăng ký
+          </Text>
           <Text mx={2} color="#b9b9b9">
             |
           </Text>
-          <Text>Đăng nhập</Text>
+          <Text fontWeight={600} color="#FFF">
+            Đăng nhập
+          </Text>
         </Flex>
 
         <Flex align="center" pos="absolute" right="-50px" top={0} bottom={0} my="auto">
           <button>
-            <Icon as={IoCart} fontSize={22} mt={0.5} />
+            <Icon as={IoCart} fontSize={22} mt={0.5} color="#FFF" />
           </button>
         </Flex>
       </Flex>
