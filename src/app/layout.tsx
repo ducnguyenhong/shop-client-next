@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             minH="100vh"
           >
             <Header />
-            <Box mt={HEADER_HEIGHT}>
+            <Box mt={`${HEADER_HEIGHT}px`} minH={`calc(100vh - ${HEADER_HEIGHT * 4}px)`}>
               <Box px={PX_ALL}>{children}</Box>
             </Box>
             <Footer />

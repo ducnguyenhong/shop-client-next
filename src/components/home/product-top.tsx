@@ -9,61 +9,61 @@ import HomeSection from './home-section';
 const ProductTop: React.FC = () => {
   const DATA = [
     {
-      id: 1,
+      id: '1',
       name: 'Áo khoác nam cao cấp Áo khoác nam cao cấp',
       image: 'https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg',
       price: 180_000
     },
     {
-      id: 2,
+      id: '2',
       name: 'Công nghệ',
       image: 'https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg',
       price: 180_000
     },
     {
-      id: 3,
+      id: '3',
       name: 'Nội thất',
       image: 'https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg',
       price: 180_000
     },
     {
-      id: 4,
+      id: '4',
       name: 'Thời trang',
       image: 'https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg',
       price: 180_000
     },
     {
-      id: 5,
+      id: '5',
       name: 'Công nghệ',
       image: 'https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg',
       price: 180_000
     },
     {
-      id: 6,
+      id: '6',
       name: 'Nội thất',
       image: 'https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg',
       price: 180_000
     },
     {
-      id: 64,
+      id: '64',
       name: 'Nội thất',
       image: 'https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg',
       price: 180_000
     },
     {
-      id: 63,
+      id: '63',
       name: 'Nội thất',
       image: 'https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg',
       price: 180_000
     },
     {
-      id: 62,
+      id: '62',
       name: 'Nội thất',
       image: 'https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg',
       price: 180_000
     },
     {
-      id: 61,
+      id: '61',
       name: 'Nội thất',
       image: 'https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg',
       price: 180_000
