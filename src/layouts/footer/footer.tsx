@@ -13,18 +13,18 @@ const Footer: React.FC = () => {
     {
       title: 'Facebook',
       icon: FaFacebookSquare,
-      url: '/',
+      url: 'https://facebook.com',
       size: 17
     },
     {
       title: 'Tiktok',
       icon: FaTiktok,
-      url: '/'
+      url: 'https://tiktok.com'
     },
     {
       title: 'Shopee',
       icon: SiShopee,
-      url: '/'
+      url: 'https://shopee.vn'
     }
   ];
 
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
     }
   ];
 
-  const SEVICES = [
+  const SERVICES = [
     {
       title: 'Chính sách đổi trả',
       href: '/chinh-sach-doi-tra'
@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
     <Box mt={20} px={PX_ALL} bgColor="#f2f2f2" pt={20}>
       <Grid templateColumns="repeat(5, 1fr)">
         <GridItem colSpan={2}>
-          <Image src="/images/logo.png" alt="logo" width={80} height={80} />
+          <Image priority src="/images/logo.png" alt="logo" width={80} height={80} />
           <Text fontWeight={700} fontSize={16} mt={3}>
             Gia Dụng Mới
           </Text>
@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
             {SOCIAL.map((item) => {
               const { title, icon, url, size = 15 } = item;
               return (
-                <ChakraLink href={url} key={title} mt={size > 15 ? 0.5 : 0}>
+                <ChakraLink href={url} target="_blank" rel="noopener noreferrer" key={title} mt={size > 15 ? 0.5 : 0}>
                   <Icon as={icon} fontSize={size} color="#7C818B" />
                 </ChakraLink>
               );
@@ -120,7 +120,7 @@ const Footer: React.FC = () => {
             Dịch vụ
           </Text>
           <Flex direction="column" gap={3} mt={6}>
-            {SEVICES.map((item) => {
+            {SERVICES.map((item) => {
               const { title, href } = item;
               return (
                 <Link href={href} key={title}>

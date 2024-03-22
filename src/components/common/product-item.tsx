@@ -2,7 +2,7 @@
 
 import { cartAtom } from '@/states/recoil';
 import { Product } from '@/types/product.type';
-import { formatCurrency } from '@/utils/helper';
+import { convertSlugURL, formatCurrency, showToast } from '@/utils/helper';
 import {
   AspectRatio,
   Box,
@@ -69,6 +69,7 @@ const ProductItem: React.FC<Props> = (props) => {
         });
       }
       setCart(newCart);
+      showToast({ content: 'Thêm sản phẩm thành công', status: 'success' });
     } catch (error) {}
     onClose();
   }, [cart, count, id, onClose, setCart]);
@@ -87,7 +88,7 @@ const ProductItem: React.FC<Props> = (props) => {
       borderRadius={3}
     >
       <Box>
-        <Link href={'/abc'}>
+        <Link href={`/san-pham/${convertSlugURL(name)}.1`}>
           <AspectRatio ratio={1 / 1} borderTopRadius={2} overflow="hidden">
             <Image src={image} alt={name} objectFit="contain" w="full" />
           </AspectRatio>

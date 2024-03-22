@@ -46,9 +46,11 @@ const Header: React.FC = () => {
           </Flex>
 
           <Flex align="center" gap={1.5}>
-            <Text fontWeight={600} color="#FFF">
-              Tin tức
-            </Text>
+            <Link href="/tin-tuc">
+              <Text fontWeight={600} color="#FFF">
+                Tin tức
+              </Text>
+            </Link>
           </Flex>
         </Flex>
 
@@ -68,15 +70,19 @@ const Header: React.FC = () => {
         </Flex>
 
         <Flex align="center">
-          <Text fontWeight={600} color="#FFF">
-            Đăng ký
-          </Text>
+          <Link href="/dang-ky">
+            <Text fontWeight={600} color="#FFF">
+              Đăng ký
+            </Text>
+          </Link>
           <Text mx={2} color="#b9b9b9">
             |
           </Text>
-          <Text fontWeight={600} color="#FFF">
-            Đăng nhập
-          </Text>
+          <Link href="/dang-nhap">
+            <Text fontWeight={600} color="#FFF">
+              Đăng nhập
+            </Text>
+          </Link>
         </Flex>
 
         <Flex align="center" pos="absolute" right="-50px" top={0} bottom={0} my="auto">

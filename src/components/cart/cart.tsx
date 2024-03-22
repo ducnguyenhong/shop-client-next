@@ -24,6 +24,7 @@ const CartComponent: NextPage = () => {
                 <Th color="main.1">Sản phẩm</Th>
                 <Th color="main.1">Đơn giá</Th>
                 <Th color="main.1">Số lượng</Th>
+                <Th color="main.1">Thành tiền</Th>
                 <Th color="main.1">Hành động</Th>
               </Tr>
             </Thead>

@@ -38,6 +38,13 @@ const CartItem: React.FC<Props> = ({ item }) => {
         <InDecreaser />
       </Td>
       <Td>
+        <Flex gap={2} alignItems="center">
+          <Text color="#1c78ce" fontWeight={600} fontSize={16}>
+            {formatCurrency(price)}
+          </Text>
+        </Flex>
+      </Td>
+      <Td>
         <button>
           <Text as="span" color="red" fontWeight={500} fontSize={14}>
             Xoá

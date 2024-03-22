@@ -1,7 +1,8 @@
+import LoginComponent from '@/components/login/login';
 import { NextPage } from 'next';
 
 const Login: NextPage = () => {
-  return <div>a</div>;
+  return <LoginComponent />;
 };
 
 export default Login;
