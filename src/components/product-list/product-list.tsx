@@ -3,7 +3,6 @@
 import { Box, Flex, Grid, GridItem, Input, Text } from '@chakra-ui/react';
 import Select from 'react-select';
 import Breadcrumb from '../common/breadcrumb';
-import PageSection from '../common/page-section';
 import Pagination from '../common/pagination';
 import ProductItem from '../common/product-item';
 
@@ -74,7 +73,6 @@ const ProductListComponent: React.FC = () => {
   return (
     <Box pt={5}>
       <Breadcrumb items={[{ title: 'Sản phẩm', href: '/san-pham' }]} />
-      <PageSection title="Danh sách sản phẩm" />
       <Box mt={10}>
         <Grid templateColumns="repeat(4, 1fr)" gap={5} mt={2}>
           <GridItem>

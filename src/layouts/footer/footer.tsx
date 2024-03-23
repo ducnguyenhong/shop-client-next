@@ -30,46 +30,46 @@ const Footer: React.FC = () => {
 
   const ABOUT_US = [
     {
+      title: 'Về chúng tôi',
+      href: '/ve-chung-toi'
+    },
+    {
       title: 'Tin tức',
       href: '/tin-tuc'
     },
     {
-      title: 'Liên hệ',
-      href: '/lien-he'
-    },
-    {
-      title: 'Về chúng tôi',
-      href: '/ve-chung-toi'
+      title: 'Điều khoản sử dụng',
+      href: '/dieu-khoan-su-dung'
     }
   ];
 
   const SERVICES = [
     {
+      title: 'Thanh toán',
+      href: '/thanh-toan'
+    },
+    {
       title: 'Chính sách đổi trả',
       href: '/chinh-sach-doi-tra'
     },
     {
-      title: 'Liên hệ',
-      href: '/lien-he'
-    },
-    {
-      title: 'Về chúng tôi',
-      href: '/ve-chung-toi'
+      title: 'Trở thành đại lý',
+      href: '/tro-thanh-dai-ly'
     }
   ];
 
-  const MORE_INFO = [
+  const CONTACT = [
     {
-      title: 'Điều khoản sử dụng',
-      href: '/dieu-khoan-su-dung'
+      title: 'Địa chỉ: số 1 Ba Đình, Hà Nội',
+      href: 'https://maps.google.com'
     },
     {
-      title: 'Liên hệ',
-      href: '/lien-he'
+      title: 'SĐT: 0987654321',
+      href: 'tel:0987654321'
     },
     {
-      title: 'Về chúng tôi',
-      href: '/ve-chung-toi'
+      title: 'Email: contact@thucphamviet.vn',
+      href: 'mailto:contact@thucphamviet.vn'
     }
   ];
 
@@ -135,10 +135,10 @@ const Footer: React.FC = () => {
 
         <GridItem colSpan={1}>
           <Text fontWeight={700} fontSize={16}>
-            Thông tin khác
+            Thông tin liên hệ
           </Text>
           <Flex direction="column" gap={3} mt={6}>
-            {MORE_INFO.map((item) => {
+            {CONTACT.map((item) => {
               const { title, href } = item;
               return (
                 <Link href={href} key={title}>

@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { FaRegHeart } from 'react-icons/fa';
 import Breadcrumb from '../common/breadcrumb';
 import InDecreaser from '../common/in-decreaser';
-import PageSection from '../common/page-section';
 
 const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
   const pathname = usePathname();
@@ -19,7 +18,6 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
           { title: 'Chi tiết sản phẩm', href: pathname, isActive: true }
         ]}
       />
-      <PageSection title="Chi tiết sản phẩm" />
       <Flex mt={10} gap={10}>
         <Flex flex={2 / 5}>
           <AspectRatio ratio={1 / 1} borderTopRadius={2} overflow="hidden" w="full">
