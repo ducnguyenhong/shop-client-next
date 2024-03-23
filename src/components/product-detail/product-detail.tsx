@@ -2,6 +2,7 @@
 
 import { formatCurrency } from '@/utils/helper';
 import { AspectRatio, Box, Button, Flex, Image, Text } from '@chakra-ui/react';
+import { FaRegHeart } from 'react-icons/fa';
 import InDecreaser from '../common/in-decreaser';
 import PageSection from '../common/page-section';
 
@@ -12,12 +13,30 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
       <Flex mt={10} gap={10}>
         <Flex flex={2 / 5}>
           <AspectRatio ratio={1 / 1} borderTopRadius={2} overflow="hidden" w="full">
-            <Image
-              src="https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg"
-              alt="product"
-              objectFit="contain"
-              w="full"
-            />
+            <Box w="full" pos="relative">
+              <Image
+                src="https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg"
+                alt="product"
+                objectFit="contain"
+                w="full"
+              />
+              <Flex pos="absolute" bgColor="#ffffff7a" right={0} bottom={0}>
+                <Button
+                  leftIcon={<FaRegHeart color="red" />}
+                  variant="outline"
+                  border="none"
+                  bgColor="transparent"
+                  px={3}
+                  h={8}
+                  py={0}
+                  fontSize={13}
+                  _hover={{ bgColor: 'transparent' }}
+                  _active={{ bgColor: 'transparent' }}
+                >
+                  Thêm vào yêu thích
+                </Button>
+              </Flex>
+            </Box>
           </AspectRatio>
         </Flex>
         <Flex flex={3 / 5} direction="column" justify="space-between">

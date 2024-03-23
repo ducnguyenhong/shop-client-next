@@ -25,7 +25,7 @@ const ComponentsTheme = {
 const ColorConfig = {
   colors: {
     main: { 1: '#0B5052' },
-    sub: { 1: '#FF9E20' }
+    sub: { 1: '#FF9E20', 2: '#ff9100' }
   }
 };
 

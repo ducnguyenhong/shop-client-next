@@ -1,4 +1,5 @@
 import { createStandaloneToast } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 export const formatCurrency = (price: number | string) =>
   new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number(price));
@@ -45,3 +46,10 @@ export const convertSlugURL = (text?: string) => {
   slug = slug.replace(/\@\-|\-\@|\@/gi, '');
   return slug;
 };
+
+export const useScrollTop = () =>
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+  }, []);

@@ -1,12 +1,13 @@
 'use client';
 
 import { HEADER_HEIGHT, PX_ALL } from '@/utils/const';
-import { Button, Flex, Icon, Input, Text } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
-import { FiChevronDown, FiSearch } from 'react-icons/fi';
+import { FiChevronDown } from 'react-icons/fi';
+import Search from './subs/search';
 
 const CartButton = dynamic(() => import('./subs/cart-button'), { ssr: false });
 
@@ -55,18 +56,7 @@ const Header: React.FC = () => {
         </Flex>
 
         <Flex flex={1} pos="relative">
-          <Input
-            bgColor="#FFF"
-            py="22px"
-            borderRadius={4}
-            placeholder="Tìm kiếm sản phẩm..."
-            color="#292D32"
-            pr="68px"
-            fontWeight={600}
-          />
-          <Button zIndex={5} pos="absolute" top={0} bottom={0} my="auto" right="3px" bgColor="sub.1" borderRadius={4}>
-            <Icon as={FiSearch} color="#FFF" fontSize={20} />
-          </Button>
+          <Search />
         </Flex>
 
         <Flex align="center">

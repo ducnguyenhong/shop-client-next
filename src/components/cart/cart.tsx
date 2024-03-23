@@ -1,7 +1,7 @@
 'use client';
 
 import { cartAtom } from '@/states/recoil';
-import { formatCurrency } from '@/utils/helper';
+import { formatCurrency, useScrollTop } from '@/utils/helper';
 import { Box, Button, Flex, Table, TableContainer, Tbody, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { IoCard } from 'react-icons/io5';
@@ -11,6 +11,8 @@ import CartItem from './cart-item';
 
 const CartComponent: NextPage = () => {
   const cart = useRecoilValue(cartAtom);
+
+  useScrollTop();
 
   return (
     <Box pt={10}>

@@ -23,6 +23,7 @@ import {
 import { isEmpty } from 'lodash';
 import Link from 'next/link';
 import { memo, useCallback, useState } from 'react';
+import { FaRegHeart } from 'react-icons/fa';
 import { IoCart } from 'react-icons/io5';
 import { MdStar } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
