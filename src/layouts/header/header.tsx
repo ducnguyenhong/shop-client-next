@@ -1,12 +1,12 @@
 'use client';
 
 import { HEADER_HEIGHT, PX_ALL } from '@/utils/const';
-import { Flex, Icon, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
+import Category from './subs/category';
 import Search from './subs/search';
 
 const CartButton = dynamic(() => import('./subs/cart-button'), { ssr: false });
@@ -28,17 +28,12 @@ const Header: React.FC = () => {
       <Flex align="center" gap={10} w="full" pos="relative">
         <Flex align="center" pos="absolute" left="-100px" top={0} bottom={0} my="auto">
           <Link href="/">
-            <Image src="/images/logo-white.png" alt="logo" width={48} height={48} />
+            <Image src="/images/logo-white.png" alt="logo" width={40} height={40} />
           </Link>
         </Flex>
 
         <Flex align="center" gap={10}>
-          <Flex align="center" gap={1.5}>
-            <Text fontWeight={600} color="#FFF">
-              Danh mục
-            </Text>
-            <Icon as={FiChevronDown} color="#b9b9b9" />
-          </Flex>
+          <Category />
 
           <Flex align="center" gap={1.5}>
             <Text fontWeight={600} color="#FFF">

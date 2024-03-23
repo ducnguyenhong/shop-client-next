@@ -77,9 +77,9 @@ const Footer: React.FC = () => {
     <Box mt={20} px={PX_ALL} bgColor="#f2f2f2" pt={20}>
       <Grid templateColumns="repeat(5, 1fr)">
         <GridItem colSpan={2}>
-          <Image priority src="/images/logo.png" alt="logo" width={80} height={80} />
+          <Image priority src="/images/logo.png" alt="logo" width={60} height={60} />
           <Text fontWeight={700} fontSize={16} mt={3}>
-            Gia Dụng Mới
+            Thực Phẩm Việt
           </Text>
           <Text fontWeight={500} mt={1}>
             Mua sắm đồ gia dụng nhanh chóng, dễ dàng
@@ -153,7 +153,7 @@ const Footer: React.FC = () => {
       </Grid>
 
       <Flex mt={16} justify="center" pb={5}>
-        <Text fontWeight={600}>© Copyright 2024 - Bản quyền thuộc về GiaDungMoi</Text>
+        <Text fontWeight={600}>© Copyright 2024 - Bản quyền thuộc về Thực Phẩm Việt</Text>
       </Flex>
     </Box>
   );

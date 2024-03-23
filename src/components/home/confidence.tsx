@@ -34,7 +34,7 @@ const Confidence: React.FC = () => {
 
   return (
     <Box bgColor="#FFF" mt={20}>
-      <HomeSection title="Gia Dụng Mới có gì?" />
+      <HomeSection title="Thực Phẩm Việt có gì?" />
       <Flex align="center" gap={10} justify="space-between" mt={6}>
         {DATA.map((item) => {
           const { title, description, image } = item;

@@ -10,8 +10,8 @@ import { Providers } from './providers';
 const font = Quicksand({ subsets: ['latin', 'vietnamese'] });
 
 export const metadata: Metadata = {
-  title: 'Gia Dụng Mới - Mua sắm đồ gia dụng nhanh chóng, dễ dàng',
-  description: 'Gia Dụng Mới - Mua sắm đồ gia dụng nhanh chóng, dễ dàng'
+  title: 'Thực Phẩm Việt - Thực phẩm sạch và an toàn',
+  description: 'Thực Phẩm Việt - Thực phẩm sạch và an toàn'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
