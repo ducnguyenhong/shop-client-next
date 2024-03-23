@@ -2,13 +2,23 @@
 
 import { formatCurrency } from '@/utils/helper';
 import { AspectRatio, Box, Button, Flex, Image, Text } from '@chakra-ui/react';
+import { usePathname } from 'next/navigation';
 import { FaRegHeart } from 'react-icons/fa';
+import Breadcrumb from '../common/breadcrumb';
 import InDecreaser from '../common/in-decreaser';
 import PageSection from '../common/page-section';
 
 const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
+  const pathname = usePathname();
+
   return (
-    <Box pt={10}>
+    <Box pt={5}>
+      <Breadcrumb
+        items={[
+          { title: 'Sản phẩm', href: '/san-pham' },
+          { title: 'Chi tiết sản phẩm', href: pathname, isActive: true }
+        ]}
+      />
       <PageSection title="Chi tiết sản phẩm" />
       <Flex mt={10} gap={10}>
         <Flex flex={2 / 5}>
@@ -58,7 +68,7 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
           <Box>
             <InDecreaser />
 
-            <Button colorScheme="orange" mt={10}>
+            <Button colorScheme="green" mt={10}>
               Thêm vào giỏ hàng
             </Button>
           </Box>

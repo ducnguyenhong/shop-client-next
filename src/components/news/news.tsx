@@ -3,12 +3,15 @@
 import { AspectRatio, Box, Flex, Icon, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { FaCalendarAlt } from 'react-icons/fa';
+import Breadcrumb from '../common/breadcrumb';
 import PageSection from '../common/page-section';
 
 const NewsComponent: React.FC = () => {
   return (
-    <Box pt={10}>
+    <Box pt={5}>
+      <Breadcrumb items={[{ title: 'Tin tức', href: '/tin-tuc' }]} />
       <PageSection title="Tin tức" />
+
       <Flex mt={10} gap={8} direction="column">
         {[1, 2, 3, 4, 5, 6].map((item) => {
           return (

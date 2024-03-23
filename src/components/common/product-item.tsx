@@ -164,10 +164,10 @@ const ProductItem: React.FC<Props> = (props) => {
                 <InDecreaser onChange={(data) => setCount(data)} />
               </Flex>
               <Flex justify="center" gap={5}>
-                <Button variant="outline" onClick={onClose} colorScheme="orange">
+                <Button variant="outline" onClick={onClose} colorScheme="green">
                   Xem chi tiết
                 </Button>
-                <Button colorScheme="orange" onClick={onAddCart}>
+                <Button colorScheme="green" onClick={onAddCart}>
                   Thêm vào giỏ hàng
                 </Button>
               </Flex>

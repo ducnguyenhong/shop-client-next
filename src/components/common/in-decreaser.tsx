@@ -28,7 +28,7 @@ const InDecreaser: React.FC<Props> = (props) => {
   return (
     <Flex align="center" gap={4}>
       <button onClick={() => setCount((prev) => (prev < 2 ? 1 : prev - 1))}>
-        <Icon as={IoRemoveCircleOutline} fontSize={30} color="main.1" mt={1} />
+        <Icon as={IoRemoveCircleOutline} fontSize={30} color="sub.1" mt={1} />
       </button>
       <Input
         px={1}
@@ -45,7 +45,7 @@ const InDecreaser: React.FC<Props> = (props) => {
           setCount((prev) => prev + 1);
         }}
       >
-        <Icon as={IoAddCircleOutline} fontSize={30} color="main.1" mt={1} />
+        <Icon as={IoAddCircleOutline} fontSize={30} color="sub.1" mt={1} />
       </button>
     </Flex>
   );

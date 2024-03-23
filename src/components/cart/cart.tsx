@@ -6,6 +6,7 @@ import { Box, Button, Flex, Table, TableContainer, Tbody, Text, Th, Thead, Tr } 
 import { NextPage } from 'next';
 import { IoCard } from 'react-icons/io5';
 import { useRecoilValue } from 'recoil';
+import Breadcrumb from '../common/breadcrumb';
 import PageSection from '../common/page-section';
 import CartItem from './cart-item';
 
@@ -15,7 +16,8 @@ const CartComponent: NextPage = () => {
   useScrollTop();
 
   return (
-    <Box pt={10}>
+    <Box pt={5}>
+      <Breadcrumb items={[{ title: 'Giỏ hàng', href: '/gio-hang' }]} />
       <PageSection title="Giỏ hàng của tôi" />
 
       <Box mt={10}>
