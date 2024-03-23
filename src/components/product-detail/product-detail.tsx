@@ -15,7 +15,7 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
           <AspectRatio ratio={1 / 1} borderTopRadius={2} overflow="hidden" w="full">
             <Box w="full" pos="relative">
               <Image
-                src="https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg"
+                src="https://homefoodshop.vn/api/media-service/thumbnails/450/250/2ef68d64-b134-4c64-803f-2b03a0e76ad6.jpg"
                 alt="product"
                 objectFit="contain"
                 w="full"

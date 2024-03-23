@@ -87,7 +87,7 @@ const Search: React.FC = () => {
                       <Flex gap={3}>
                         <AspectRatio ratio={16 / 9} borderRadius={3} overflow="hidden" w={28}>
                           <Image
-                            src="https://motta.uix.store/wp-content/uploads/2022/07/homev2-toysgames.jpg"
+                            src="https://homefoodshop.vn/api/media-service/thumbnails/450/250/2ef68d64-b134-4c64-803f-2b03a0e76ad6.jpg"
                             alt="product"
                             objectFit="contain"
                             w="full"

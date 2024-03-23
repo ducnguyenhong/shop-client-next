@@ -23,7 +23,6 @@ import {
 import { isEmpty } from 'lodash';
 import Link from 'next/link';
 import { memo, useCallback, useState } from 'react';
-import { FaRegHeart } from 'react-icons/fa';
 import { IoCart } from 'react-icons/io5';
 import { MdStar } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
@@ -90,7 +89,7 @@ const ProductItem: React.FC<Props> = (props) => {
     >
       <Box>
         <Link href={`/san-pham/${convertSlugURL(name)}.1`}>
-          <AspectRatio ratio={1 / 1} borderTopRadius={2} overflow="hidden">
+          <AspectRatio ratio={4 / 3} borderTopRadius={2} overflow="hidden">
             <Image src={image} alt={name} objectFit="contain" w="full" />
           </AspectRatio>
           <Box p={2.5}>

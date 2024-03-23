@@ -12,22 +12,22 @@ const Confidence: React.FC = () => {
     },
     {
       title: 'Thanh toán nhanh',
-      description: 'Thanh toán nhanh Thanh toán nhanh',
+      description: 'Thanh toán nhanh qua chuyển khoản, COD',
       image: '/images/card.png'
     },
     {
       title: 'Ưu đãi hàng ngày',
-      description: 'Ưu đãi hàng ngày Ưu đãi hàng ngày',
+      description: 'Rất nhiều ưu đãi theo từng ngày',
       image: '/images/voucher.png'
     },
     {
       title: 'Chính sách đổi trả',
-      description: 'Chính sách đổi trả Chính sách đổi trả',
+      description: 'Chính sách đổi trả minh bạch, an toàn',
       image: '/images/return.png'
     },
     {
       title: 'Hỗ trợ 24/7',
-      description: 'Hỗ trợ 24/7 Hỗ trợ 24/7 Hỗ trợ 24/7',
+      description: 'Hỗ trợ khách hàng mua sản phẩm 24/7',
       image: '/images/support.png'
     }
   ];

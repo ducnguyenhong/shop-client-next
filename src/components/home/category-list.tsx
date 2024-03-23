@@ -6,7 +6,7 @@ const CategoryList: React.FC = () => {
   const DATA = [
     {
       id: 1,
-      name: 'Thời trang',
+      name: 'HOT',
       image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-deals.jpg'
     },
     {

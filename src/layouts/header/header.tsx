@@ -36,9 +36,11 @@ const Header: React.FC = () => {
           <Category />
 
           <Flex align="center" gap={1.5}>
-            <Text fontWeight={600} color="#FFF">
-              Giảm giá
-            </Text>
+            <Link href="/san-pham">
+              <Text fontWeight={600} color="#FFF">
+                Sản phẩm
+              </Text>
+            </Link>
           </Flex>
 
           <Flex align="center" gap={1.5}>
