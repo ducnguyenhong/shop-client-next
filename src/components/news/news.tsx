@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { FaCalendarAlt } from 'react-icons/fa';
 import Breadcrumb from '../common/breadcrumb';
 import PageSection from '../common/page-section';
+import Pagination from '../common/pagination';
 
 const NewsComponent: React.FC = () => {
   return (
@@ -56,6 +57,10 @@ const NewsComponent: React.FC = () => {
             </Flex>
           );
         })}
+      </Flex>
+
+      <Flex mt={14} justify="flex-end">
+        <Pagination />
       </Flex>
     </Box>
   );

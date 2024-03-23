@@ -4,6 +4,7 @@ import { formatCurrency } from '@/utils/helper';
 import { AspectRatio, Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import { usePathname } from 'next/navigation';
 import { FaRegHeart } from 'react-icons/fa';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 import Breadcrumb from '../common/breadcrumb';
 import InDecreaser from '../common/in-decreaser';
 
@@ -21,30 +22,36 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
       <Flex mt={10} gap={10}>
         <Flex flex={2 / 5}>
           <AspectRatio ratio={1 / 1} borderTopRadius={2} overflow="hidden" w="full">
-            <Box w="full" pos="relative">
-              <Image
-                src="https://homefoodshop.vn/api/media-service/thumbnails/450/250/2ef68d64-b134-4c64-803f-2b03a0e76ad6.jpg"
-                alt="product"
-                objectFit="contain"
-                w="full"
-              />
-              <Flex pos="absolute" bgColor="#ffffff7a" right={0} bottom={0}>
-                <Button
-                  leftIcon={<FaRegHeart color="red" />}
-                  variant="outline"
-                  border="none"
-                  bgColor="transparent"
-                  px={3}
-                  h={8}
-                  py={0}
-                  fontSize={13}
-                  _hover={{ bgColor: 'transparent' }}
-                  _active={{ bgColor: 'transparent' }}
-                >
-                  Thêm vào yêu thích
-                </Button>
-              </Flex>
-            </Box>
+            <PhotoProvider>
+              <PhotoView src="https://homefoodshop.vn/api/media-service/thumbnails/450/250/2ef68d64-b134-4c64-803f-2b03a0e76ad6.jpg">
+                <Box w="full" pos="relative">
+                  <Image
+                    cursor="pointer"
+                    src="https://homefoodshop.vn/api/media-service/thumbnails/450/250/2ef68d64-b134-4c64-803f-2b03a0e76ad6.jpg"
+                    alt="product"
+                    objectFit="contain"
+                    w="full"
+                  />
+
+                  <Flex pos="absolute" bgColor="#ffffff7a" right={0} bottom={0}>
+                    <Button
+                      leftIcon={<FaRegHeart color="red" />}
+                      variant="outline"
+                      border="none"
+                      bgColor="transparent"
+                      px={3}
+                      h={8}
+                      py={0}
+                      fontSize={13}
+                      _hover={{ bgColor: 'transparent' }}
+                      _active={{ bgColor: 'transparent' }}
+                    >
+                      Thêm vào yêu thích
+                    </Button>
+                  </Flex>
+                </Box>
+              </PhotoView>
+            </PhotoProvider>
           </AspectRatio>
         </Flex>
         <Flex flex={3 / 5} direction="column" justify="space-between">

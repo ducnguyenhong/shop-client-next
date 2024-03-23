@@ -4,6 +4,7 @@ import { HEADER_HEIGHT, PX_ALL } from '@/utils/const';
 import { Box } from '@chakra-ui/react';
 import type { Metadata } from 'next';
 import { Quicksand } from 'next/font/google';
+import 'react-photo-view/dist/react-photo-view.css';
 import './globals.css';
 import { Providers } from './providers';
 
