@@ -23,11 +23,11 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
         <Flex flex={2 / 5}>
           <AspectRatio ratio={1 / 1} borderTopRadius={2} overflow="hidden" w="full">
             <PhotoProvider>
-              <PhotoView src="https://down-vn.img.susercontent.com/file/vn-50009109-https://down-vn.img.susercontent.com/file/sg-11134201-7rbl5-lmyepf0vhb7pfa">
+              <PhotoView src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg">
                 <Box w="full" pos="relative">
                   <Image
                     cursor="pointer"
-                    src="https://down-vn.img.susercontent.com/file/vn-50009109-https://down-vn.img.susercontent.com/file/sg-11134201-7rbl5-lmyepf0vhb7pfa"
+                    src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg"
                     alt="product"
                     objectFit="contain"
                     w="full"

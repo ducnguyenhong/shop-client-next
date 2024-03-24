@@ -87,7 +87,7 @@ const Search: React.FC = () => {
                       <Flex gap={3}>
                         <AspectRatio ratio={16 / 9} borderRadius={3} overflow="hidden" w={28}>
                           <Image
-                            src="https://down-vn.img.susercontent.com/file/vn-50009109-https://down-vn.img.susercontent.com/file/sg-11134201-7rbl5-lmyepf0vhb7pfa"
+                            src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg"
                             alt="product"
                             objectFit="contain"
                             w="full"

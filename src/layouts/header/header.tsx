@@ -57,7 +57,12 @@ const Header: React.FC = () => {
           <Search />
         </Flex>
 
-        {/* <Flex align="center">
+        <CartButton />
+
+        <Flex align="center" pos="absolute" right="-150px" top={0} bottom={0} my="auto">
+          <UserButton />
+
+          {/* <Flex align="center">
           <Link href="/dang-ky">
             <Text fontWeight={600} color="#FFF">
               Đăng ký
@@ -72,11 +77,6 @@ const Header: React.FC = () => {
             </Text>
           </Link>
         </Flex> */}
-
-        <UserButton />
-
-        <Flex align="center" pos="absolute" right="-50px" top={0} bottom={0} my="auto">
-          <CartButton />
         </Flex>
       </Flex>
     </Flex>

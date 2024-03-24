@@ -13,7 +13,8 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { Fragment, memo, useRef } from 'react';
-import { FaHistory, FaRegHeart, FaUserCircle } from 'react-icons/fa';
+import { FaHistory, FaRegHeart, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
+import { IoChevronDown } from 'react-icons/io5';
 
 const UserButton: React.FC = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
@@ -23,20 +24,17 @@ const UserButton: React.FC = () => {
     {
       title: 'Thông tin cá nhân',
       icon: FaUserCircle,
-      href: '/thong-tin-ca-nhan',
-      showDivider: true
+      href: '/thong-tin-ca-nhan'
     },
     {
       title: 'Lịch sử mua hàng',
       icon: FaHistory,
-      href: '/lich-su-mua-hang',
-      showDivider: true
+      href: '/lich-su-mua-hang'
     },
     {
       title: 'Sản phẩm yêu thích',
       icon: FaRegHeart,
-      href: '/san-pham-yeu-thich',
-      showDivider: false
+      href: '/san-pham-yeu-thich'
     }
   ];
 
@@ -49,32 +47,18 @@ const UserButton: React.FC = () => {
     <Box ref={popoverRef}>
       <Popover autoFocus={false} placement="bottom-end" onClose={onClose} isOpen={isOpen}>
         <PopoverTrigger>
-          <Flex
-            onClick={onToggle}
-            cursor="pointer"
-            align="center"
-            gap={2}
-            border="1px solid #b9b9b9"
-            pl={1}
-            pr={3}
-            py={1}
-            borderRadius="full"
-          >
-            <Flex align="center" justify="center" w={8} h={8} borderRadius="full" bgColor="#999999">
-              <Text as="span" color="#FFF" fontWeight={500} fontSize={18}>
-                Đ
-              </Text>
-            </Flex>
+          <Flex onClick={onToggle} cursor="pointer" align="center" gap={1.5}>
             <Text as="span" color="#FFF" fontWeight={600}>
               Nguyễn Đức
             </Text>
+            <Icon as={IoChevronDown} color="#FFF" />
           </Flex>
         </PopoverTrigger>
         <PopoverContent w="auto">
           <PopoverBody px={4} py={2}>
             <Flex direction="column">
               {MENU_DATA.map((item) => {
-                const { title, showDivider, icon, href } = item;
+                const { title, icon, href } = item;
                 return (
                   <Fragment key={title}>
                     <Link href={href} onClick={onClose}>
@@ -86,10 +70,17 @@ const UserButton: React.FC = () => {
                       </Flex>
                     </Link>
 
-                    {showDivider && <Divider my={2} />}
+                    <Divider my={2} />
                   </Fragment>
                 );
               })}
+
+              <Flex cursor="pointer" align="center" gap={2}>
+                <Icon as={FaSignOutAlt} color="#828282" />
+                <Text as="span" fontWeight={600}>
+                  Đăng xuất
+                </Text>
+              </Flex>
             </Flex>
           </PopoverBody>
         </PopoverContent>

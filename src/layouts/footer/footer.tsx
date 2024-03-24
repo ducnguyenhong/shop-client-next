@@ -82,7 +82,7 @@ const Footer: React.FC = () => {
             Thực Phẩm Việt
           </Text>
           <Text fontWeight={500} mt={1}>
-            Mua sắm đồ gia dụng nhanh chóng, dễ dàng
+            Thực phẩm sạch và an toàn
           </Text>
 
           <Flex align="center" mt={4} gap={7}>

@@ -33,11 +33,11 @@ const HomeSlider: React.FC = () => {
   return (
     <Flex gap={3} pt={3} h="400px">
       <Flex w="60%">
-        <SliderItem href="/danh-muc/thuc-pham-da-dang" image="/images/banner-1.png" />
+        <SliderItem href="/san-pham" image="/images/banner-1.png" />
       </Flex>
       <Flex w="40%" direction="column" gap={3} h="full">
-        <SliderItem href="/danh-muc/thuc-pham-thuan-viet" image="/images/banner-2.png" />
-        <SliderItem href="/danh-muc/thuc-pham-tri-lieu" image="/images/banner-3.png" />
+        <SliderItem href="/san-pham?categoryId=1" image="/images/banner-2.png" />
+        <SliderItem href="/san-pham?categoryId=2" image="/images/banner-3.png" />
       </Flex>
     </Flex>
   );
