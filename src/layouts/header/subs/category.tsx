@@ -1,3 +1,4 @@
+import { CATEGORY_LIST } from '@/utils/const';
 import {
   Box,
   Flex,
@@ -11,51 +12,9 @@ import {
   useDisclosure,
   useOutsideClick
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import { memo, useRef } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
-
-const DATA = [
-  {
-    id: 1,
-    name: 'Thời trang',
-    image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-deals.jpg'
-  },
-  {
-    id: 3,
-    name: 'Nội thất',
-    image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
-  },
-  {
-    id: 5,
-    name: 'Công nghệ',
-    image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
-  },
-  {
-    id: 6,
-    name: 'Nội thất',
-    image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
-  },
-  {
-    id: 555,
-    name: 'Công nghệ',
-    image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
-  },
-  {
-    id: 666,
-    name: 'Nội thất',
-    image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
-  },
-  {
-    id: 6363,
-    name: 'Công nghệ',
-    image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
-  },
-  {
-    id: 65376468766,
-    name: 'Nội thất',
-    image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
-  }
-];
 
 const Category: React.FC = () => {
   const { isOpen, onClose, onToggle } = useDisclosure();
@@ -80,13 +39,15 @@ const Category: React.FC = () => {
         <PopoverContent w="full" boxShadow="md" mt={3}>
           <PopoverBody py={3}>
             <Flex direction="column" gap={4}>
-              {DATA.map((item) => {
-                const { id, name, image } = item;
+              {CATEGORY_LIST.map((item) => {
+                const { id, title, image } = item;
                 return (
-                  <Flex key={id} align="center" gap={2}>
-                    <Image src={image} alt={name} objectFit="contain" w={10} h={10} borderRadius="full" />
-                    <Text fontWeight={600}>{name}</Text>
-                  </Flex>
+                  <Link href={`/san-pham?categoryId=${id}`} key={id}>
+                    <Flex align="center" gap={2}>
+                      <Image src={image} alt={title} objectFit="contain" w={8} h={8} borderRadius="full" />
+                      <Text fontWeight={600}>{title}</Text>
+                    </Flex>
+                  </Link>
                 );
               })}
             </Flex>

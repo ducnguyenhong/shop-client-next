@@ -1,62 +1,23 @@
+import { CATEGORY_LIST } from '@/utils/const';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 import { memo } from 'react';
 import HomeSection from './home-section';
 
 const CategoryList: React.FC = () => {
-  const DATA = [
-    {
-      id: 1,
-      name: 'HOT',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-deals.jpg'
-    },
-    {
-      id: 3,
-      name: 'Nội thất',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
-    },
-    {
-      id: 5,
-      name: 'Công nghệ',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
-    },
-    {
-      id: 6,
-      name: 'Nội thất',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
-    },
-    {
-      id: 555,
-      name: 'Công nghệ',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
-    },
-    {
-      id: 666,
-      name: 'Nội thất',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
-    },
-    {
-      id: 6363,
-      name: 'Công nghệ',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-electronics.jpg'
-    },
-    {
-      id: 65376468766,
-      name: 'Nội thất',
-      image: 'https://motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg'
-    }
-  ];
-
   return (
     <Box bgColor="#FFF" mt={10}>
       <HomeSection title="Danh mục sản phẩm" />
       <Flex align="center" gap={10} justify="space-between" mt={4}>
-        {DATA.map((item) => {
-          const { id, name, image } = item;
+        {CATEGORY_LIST.map((item) => {
+          const { id, title, image } = item;
           return (
-            <Flex key={id} align="center" justify="center" gap={2} direction="column">
-              <Image src={image} alt={name} objectFit="contain" w={20} h={20} borderRadius="full" />
-              <Text fontWeight={600}>{name}</Text>
-            </Flex>
+            <Link href={`/san-pham?categoryId=${id}`} key={id}>
+              <Flex align="center" justify="center" gap={2} direction="column">
+                <Image src={image} alt={title} objectFit="contain" w={20} h={20} borderRadius="full" />
+                <Text fontWeight={600}>{title}</Text>
+              </Flex>
+            </Link>
           );
         })}
       </Flex>

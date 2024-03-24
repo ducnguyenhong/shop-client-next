@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { memo } from 'react';
 import Category from './subs/category';
 import Search from './subs/search';
+import UserButton from './subs/user-button';
 
 const CartButton = dynamic(() => import('./subs/cart-button'), { ssr: false });
 
@@ -56,7 +57,7 @@ const Header: React.FC = () => {
           <Search />
         </Flex>
 
-        <Flex align="center">
+        {/* <Flex align="center">
           <Link href="/dang-ky">
             <Text fontWeight={600} color="#FFF">
               Đăng ký
@@ -70,7 +71,9 @@ const Header: React.FC = () => {
               Đăng nhập
             </Text>
           </Link>
-        </Flex>
+        </Flex> */}
+
+        <UserButton />
 
         <Flex align="center" pos="absolute" right="-50px" top={0} bottom={0} my="auto">
           <CartButton />
