@@ -7,7 +7,7 @@ interface SectionProps {
 
 const HomeSection: React.FC<SectionProps> = ({ title }) => {
   return (
-    <Text fontSize={24} mb={3} fontWeight={700}>
+    <Text fontSize={{ xs: 16, md: 18, lg: 24 }} mb={3} fontWeight={700}>
       {title}
     </Text>
   );

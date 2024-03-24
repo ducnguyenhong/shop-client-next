@@ -74,9 +74,16 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <Box mt={20} px={PX_ALL} bgColor="#f2f2f2" pt={20}>
-      <Grid templateColumns="repeat(5, 1fr)">
-        <GridItem colSpan={2}>
+    <Box mt={{ xs: 10, lg: 20 }} px={PX_ALL} bgColor="#f2f2f2" pt={{ xs: 6, lg: 20 }}>
+      <Grid templateColumns={{ xs: 'repeat(4, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(5, 1fr)' }}>
+        <GridItem
+          colSpan={{ xs: 4, md: 3, lg: 2 }}
+          display={{ xs: 'flex', lg: 'grid' }}
+          alignItems={{ xs: 'center', lg: 'flex-start' }}
+          justifyContent={{ xs: 'center', lg: 'flex-start' }}
+          flexDirection="column"
+          mb={{ xs: 8, lg: 0 }}
+        >
           <Image priority src="/images/logo.png" alt="logo" width={60} height={60} />
           <Text fontWeight={700} fontSize={16} mt={3}>
             Thực Phẩm Việt
@@ -97,11 +104,11 @@ const Footer: React.FC = () => {
           </Flex>
         </GridItem>
 
-        <GridItem colSpan={1}>
+        <GridItem colSpan={{ xs: 2, md: 1 }}>
           <Text fontWeight={700} fontSize={16}>
             Về chúng tôi
           </Text>
-          <Flex direction="column" gap={3} mt={6}>
+          <Flex direction="column" gap={3} mt={{ xs: 3, lg: 6 }}>
             {ABOUT_US.map((item) => {
               const { title, href } = item;
               return (
@@ -115,11 +122,11 @@ const Footer: React.FC = () => {
           </Flex>
         </GridItem>
 
-        <GridItem colSpan={1}>
+        <GridItem colSpan={{ xs: 2, md: 1 }}>
           <Text fontWeight={700} fontSize={16}>
             Dịch vụ
           </Text>
-          <Flex direction="column" gap={3} mt={6}>
+          <Flex direction="column" gap={3} mt={{ xs: 3, lg: 6 }}>
             {SERVICES.map((item) => {
               const { title, href } = item;
               return (
@@ -133,11 +140,11 @@ const Footer: React.FC = () => {
           </Flex>
         </GridItem>
 
-        <GridItem colSpan={1}>
+        <GridItem colSpan={{ xs: 4, md: 1 }} mt={{ xs: 6, md: 0 }}>
           <Text fontWeight={700} fontSize={16}>
-            Thông tin liên hệ
+            Liên hệ
           </Text>
-          <Flex direction="column" gap={3} mt={6}>
+          <Flex direction="column" gap={3} mt={{ xs: 3, lg: 6 }}>
             {CONTACT.map((item) => {
               const { title, href } = item;
               return (
@@ -152,8 +159,10 @@ const Footer: React.FC = () => {
         </GridItem>
       </Grid>
 
-      <Flex mt={16} justify="center" pb={5}>
-        <Text fontWeight={600}>© Copyright 2024 - Bản quyền thuộc về Thực Phẩm Việt</Text>
+      <Flex mt={{ xs: 8, lg: 16 }} justify="center" pb={5}>
+        <Text fontWeight={600} textAlign="center">
+          © Copyright 2024 - Bản quyền thuộc về Thực&nbsp;Phẩm&nbsp;Việt
+        </Text>
       </Flex>
     </Box>
   );

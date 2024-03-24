@@ -132,7 +132,7 @@ const ProductItem: React.FC<Props> = (props) => {
         </Button>
       </Box>
 
-      <Drawer isOpen={isOpen} placement="left" size="md" onClose={onClose}>
+      <Drawer isOpen={isOpen} placement="left" size={{ xs: 'xs', md: 'md' }} onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />

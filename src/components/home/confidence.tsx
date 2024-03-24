@@ -1,6 +1,9 @@
+'use client';
+
+import { useMediaQuery } from '@/utils/hooks';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Image from 'next/image';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import HomeSection from './home-section';
 
 const Confidence: React.FC = () => {
@@ -32,19 +35,46 @@ const Confidence: React.FC = () => {
     }
   ];
 
+  const isMobile = useMediaQuery('(max-width: 576px)');
+  const isTablet = useMediaQuery('(min-width: 577px) and (max-width : 991px)');
+
+  const imageSize = useMemo(() => {
+    if (isMobile) {
+      return 40;
+    }
+    if (isTablet) {
+      return 50;
+    }
+    return 70;
+  }, [isMobile, isTablet]);
+
   return (
-    <Box bgColor="#FFF" mt={20}>
+    <Box bgColor="#FFF" mt={{ xs: 10, lg: 20 }}>
       <HomeSection title="Thực Phẩm Việt có gì?" />
-      <Flex align="center" gap={10} justify="space-between" mt={6}>
+      <Flex align="center" justify="space-evenly" mt={6} flexWrap="wrap">
         {DATA.map((item) => {
           const { title, description, image } = item;
           return (
-            <Flex flex={1} key={title} align="center" justify="space-between" direction="column">
-              <Image src={image} alt={title} width={70} height={70} />
-              <Text mt={5} fontWeight={600} fontSize={15}>
+            <Flex
+              w={{ xs: '33%', md: '20%' }}
+              key={title}
+              align="center"
+              justify="space-between"
+              direction="column"
+              px={2}
+              mb={{ xs: 4, md: 0 }}
+            >
+              <Image src={image} alt={title} width={imageSize} height={imageSize} />
+              <Text
+                mt={{ xs: 1, md: 5 }}
+                h={{ xs: '36px', md: 'auto' }}
+                fontWeight={600}
+                fontSize={{ xs: 12, lg: 15 }}
+                textAlign="center"
+              >
                 {title}
               </Text>
-              <Text textAlign="center" mt={2}>
+              <Text textAlign="center" mt={2} display={{ xs: 'none', lg: 'block' }}>
                 {description}
               </Text>
             </Flex>
