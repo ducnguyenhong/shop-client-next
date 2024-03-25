@@ -1,3 +1,5 @@
+'use client';
+
 import { cartAtom } from '@/states/recoil';
 import { Box, Flex, Icon, Text } from '@chakra-ui/react';
 import Link from 'next/link';

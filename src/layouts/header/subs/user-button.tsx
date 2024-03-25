@@ -1,4 +1,3 @@
-import { useMediaQuery } from '@/utils/hooks';
 import {
   Box,
   Divider,
@@ -21,7 +20,6 @@ import { IoChevronDown } from 'react-icons/io5';
 const UserButton: React.FC = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
   const popoverRef = useRef<any>();
-  const isMobileAndTablet = useMediaQuery('(max-width: 991px)');
 
   const MENU_DATA = [
     {
@@ -50,18 +48,20 @@ const UserButton: React.FC = () => {
     <Box ref={popoverRef}>
       <Popover autoFocus={false} placement="bottom-end" onClose={onClose} isOpen={isOpen}>
         <PopoverTrigger>
-          {isMobileAndTablet ? (
-            <button onClick={onToggle}>
-              <Image src="/images/user.png" alt="logo" width={32} height={32} />
-            </button>
-          ) : (
-            <Flex onClick={onToggle} cursor="pointer" align="center" gap={1.5}>
+          <div>
+            <Box display={{ xs: 'block', lg: 'none' }}>
+              <button onClick={onToggle}>
+                <Image src="/images/user.png" alt="logo" width={32} height={32} />
+              </button>
+            </Box>
+
+            <Flex display={{ xs: 'none', lg: 'block' }} onClick={onToggle} cursor="pointer" align="center" gap={1.5}>
               <Text as="span" color="#FFF" fontWeight={600}>
                 Nguyễn Đức
               </Text>
               <Icon as={IoChevronDown} color="#FFF" />
             </Flex>
-          )}
+          </div>
         </PopoverTrigger>
         <PopoverContent w="auto">
           <PopoverBody px={4} py={2}>

@@ -1,10 +1,10 @@
 'use client';
 
-import { Box, Flex, Grid, GridItem, Input, Text } from '@chakra-ui/react';
-import Select from 'react-select';
+import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 import Breadcrumb from '../common/breadcrumb';
 import Pagination from '../common/pagination';
 import ProductItem from '../common/product-item';
+import ProductFilter from './product-filter';
 
 const ProductListComponent: React.FC = () => {
   const DATA = [
@@ -73,36 +73,9 @@ const ProductListComponent: React.FC = () => {
   return (
     <Box pt={5}>
       <Breadcrumb items={[{ title: 'Sản phẩm', href: '/san-pham' }]} />
-      <Box mt={10}>
-        <Grid templateColumns="repeat(4, 1fr)" gap={5} mt={2}>
-          <GridItem>
-            <Text fontWeight={600} fontSize={13} mb={1} color="main.1">
-              Tìm kiếm
-            </Text>
-            <Input placeholder="Nhập từ khoá" border="1px solid #ccc" h="38px" />
-          </GridItem>
-          <GridItem>
-            <Text fontWeight={600} fontSize={13} mb={1} color="main.1">
-              Danh mục
-            </Text>
-            <Select placeholder="Chọn loại sản phẩm" />
-          </GridItem>
-          <GridItem>
-            <Text fontWeight={600} fontSize={13} mb={1} color="main.1">
-              Loại sản phẩm
-            </Text>
-            <Select placeholder="Chọn loại sản phẩm" />
-          </GridItem>
-          <GridItem>
-            <Text fontWeight={600} fontSize={13} mb={1} color="main.1">
-              Hiện trạng
-            </Text>
-            <Select placeholder="Chọn loại sản phẩm" />
-          </GridItem>
-        </Grid>
-      </Box>
-      <Box mt={20}>
-        <Grid templateColumns="repeat(5, 1fr)" gap={4} mt={2}>
+      <ProductFilter />
+      <Box mt={{ xs: 10, md: 12, lg: 20 }}>
+        <Grid templateColumns={{ xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)', lg: 'repeat(5, 1fr)' }} gap={4} mt={2}>
           {[...DATA, ...DATA].map((item) => (
             <GridItem key={item.id}>
               <ProductItem data={item} />

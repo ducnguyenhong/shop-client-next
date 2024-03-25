@@ -69,6 +69,7 @@ const HeaderMobile: React.FC = () => {
 
   return (
     <Flex
+      display={{ xs: 'flex', lg: 'none' }}
       bgColor="main.1"
       h={`${HEADER_HEIGHT - 20}px`}
       pos="fixed"
@@ -99,7 +100,7 @@ const HeaderMobile: React.FC = () => {
           <DrawerHeader bgColor="#f5f5f5" py={4}>
             <Flex align="center" gap={3}>
               <Image src="/images/logo.png" alt="logo" width={30} height={30} />
-              <Text>Thực Phẩm Việt</Text>
+              <Text mt={1}>Thực Phẩm Việt</Text>
             </Flex>
           </DrawerHeader>
 
