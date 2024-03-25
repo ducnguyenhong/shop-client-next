@@ -2,13 +2,15 @@
 
 import { HEADER_HEIGHT, PX_ALL } from '@/utils/const';
 import { Flex, Text } from '@chakra-ui/react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
-import CartButton from '../subs/cart-button';
 import Category from '../subs/category';
 import Search from '../subs/search';
 import UserButton from '../subs/user-button';
+
+const CartButton = dynamic(() => import('./cart-button'), { ssr: false });
 
 const HeaderDesktop: React.FC = () => {
   return (
