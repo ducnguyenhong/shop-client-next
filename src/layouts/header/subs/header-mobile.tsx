@@ -1,24 +1,71 @@
 import { HEADER_HEIGHT } from '@/utils/const';
 import {
+  Button,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   Flex,
   Icon,
+  Input,
   Text,
   useDisclosure
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { memo } from 'react';
+import { useRouter } from 'next/navigation';
+import { memo, useCallback, useState } from 'react';
 import { BsList } from 'react-icons/bs';
+import { FaSignInAlt, FaUserPlus } from 'react-icons/fa';
+import { FiSearch } from 'react-icons/fi';
+import { IoMdApps } from 'react-icons/io';
+import { IoCart, IoNewspaper } from 'react-icons/io5';
 
 const HeaderMobile: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [keyword, setKeyword] = useState<string>('');
+  const router = useRouter();
+
+  const DATA_MENU = [
+    {
+      title: 'Giỏ hàng của tôi',
+      href: '/gio-hang',
+      icon: <Icon as={IoCart} w={4} />
+    },
+    {
+      title: 'Sản phẩm',
+      href: '/san-pham',
+      icon: <Icon as={IoMdApps} w={4} />
+    },
+    {
+      title: 'Tin tức',
+      href: '/tin-tuc',
+      icon: <Icon as={IoNewspaper} color="#4d4d4d" fontSize={13} w={4} />
+    }
+  ];
+
+  const DATA_AUTH = [
+    {
+      title: 'Đăng nhập',
+      href: '/dang-nhap',
+      icon: <Icon as={FaSignInAlt} w={4} fontSize={13} color="#4d4d4d" />
+    },
+    {
+      title: 'Đăng ký',
+      href: '/dang-ky',
+      icon: <Icon as={FaUserPlus} w={4} fontSize={13} color="#4d4d4d" />
+    }
+  ];
+
+  const onSearch = useCallback(() => {
+    if (!keyword) {
+      return;
+    }
+    router.push(`/tim-kiem?tu-khoa=${keyword.trim()}`);
+  }, [keyword, router]);
 
   return (
     <Flex
@@ -38,7 +85,6 @@ const HeaderMobile: React.FC = () => {
       </button>
 
       <Link href="/">
-        {/* <Image src="/images/logo-white.png" alt="logo" width={32} height={32} /> */}
         <Text color="#FFF" fontWeight={600} fontSize={15}>
           Thực Phẩm Việt
         </Text>
@@ -51,12 +97,85 @@ const HeaderMobile: React.FC = () => {
       <Drawer isOpen={isOpen} placement="left" size="xs" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerCloseButton mt={2} />
+          <DrawerHeader bgColor="#f5f5f5" py={4}>
+            <Flex align="center" gap={3}>
+              <Image src="/images/logo.png" alt="logo" width={30} height={30} />
+              <Text>Thực Phẩm Việt</Text>
+            </Flex>
+          </DrawerHeader>
 
-          <DrawerBody>aaaaaaaa</DrawerBody>
+          <DrawerBody pt={4} px={4}>
+            <Flex flex={1} pos="relative">
+              <Input
+                bgColor="#FFF"
+                h="40px"
+                borderRadius={4}
+                placeholder="Tìm kiếm sản phẩm..."
+                color="#292D32"
+                pr="68px"
+                fontWeight={600}
+                fontSize={14}
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+              />
+              <Button
+                type="button"
+                onClick={onSearch}
+                zIndex={5}
+                pos="absolute"
+                top={0}
+                bottom={0}
+                h="38px"
+                my="auto"
+                right="1px"
+                bgColor="sub.1"
+                borderRadius={4}
+                _hover={{ bgColor: 'sub.2' }}
+                _active={{ bgColor: 'sub.2' }}
+              >
+                <Icon as={FiSearch} color="#FFF" fontSize={18} />
+              </Button>
+            </Flex>
 
-          <DrawerFooter>aaaaaaaa</DrawerFooter>
+            <Flex direction="column" gap={3} mt={5}>
+              {DATA_MENU.map((item) => {
+                const { title, href, icon } = item;
+                return (
+                  <Flex key={href}>
+                    <Link href={href}>
+                      <Flex align="center" gap={2}>
+                        {icon}
+                        <Text as="span" fontWeight={600}>
+                          {title}
+                        </Text>
+                      </Flex>
+                    </Link>
+                  </Flex>
+                );
+              })}
+            </Flex>
+
+            <Divider mt={5} />
+
+            <Flex direction="column" gap={3} mt={5}>
+              {DATA_AUTH.map((item) => {
+                const { title, href, icon } = item;
+                return (
+                  <Flex key={href}>
+                    <Link href={href}>
+                      <Flex align="center" gap={2}>
+                        {icon}
+                        <Text as="span" fontWeight={600}>
+                          {title}
+                        </Text>
+                      </Flex>
+                    </Link>
+                  </Flex>
+                );
+              })}
+            </Flex>
+          </DrawerBody>
         </DrawerContent>
       </Drawer>
     </Flex>
