@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@/utils/hooks';
 import {
   Box,
   Divider,
@@ -11,6 +12,7 @@ import {
   useDisclosure,
   useOutsideClick
 } from '@chakra-ui/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, memo, useRef } from 'react';
 import { FaHistory, FaRegHeart, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
@@ -19,6 +21,7 @@ import { IoChevronDown } from 'react-icons/io5';
 const UserButton: React.FC = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
   const popoverRef = useRef<any>();
+  const isMobileAndTablet = useMediaQuery('(max-width: 991px)');
 
   const MENU_DATA = [
     {
@@ -47,15 +50,28 @@ const UserButton: React.FC = () => {
     <Box ref={popoverRef}>
       <Popover autoFocus={false} placement="bottom-end" onClose={onClose} isOpen={isOpen}>
         <PopoverTrigger>
-          <Flex onClick={onToggle} cursor="pointer" align="center" gap={1.5}>
-            <Text as="span" color="#FFF" fontWeight={600}>
-              Nguyễn Đức
-            </Text>
-            <Icon as={IoChevronDown} color="#FFF" />
-          </Flex>
+          {isMobileAndTablet ? (
+            <button onClick={onToggle}>
+              <Image src="/images/user.png" alt="logo" width={32} height={32} />
+            </button>
+          ) : (
+            <Flex onClick={onToggle} cursor="pointer" align="center" gap={1.5}>
+              <Text as="span" color="#FFF" fontWeight={600}>
+                Nguyễn Đức
+              </Text>
+              <Icon as={IoChevronDown} color="#FFF" />
+            </Flex>
+          )}
         </PopoverTrigger>
         <PopoverContent w="auto">
           <PopoverBody px={4} py={2}>
+            <Flex align="center" gap={2}>
+              <Image src="/images/user.png" alt="logo" width={32} height={32} />
+              <Text fontWeight={600}>Nguyễn Đức</Text>
+            </Flex>
+
+            <Divider my={2} />
+
             <Flex direction="column">
               {MENU_DATA.map((item) => {
                 const { title, icon, href } = item;

@@ -29,7 +29,7 @@ const Search: React.FC = () => {
     if (!keyword) {
       return;
     }
-    router.push(`/tim-kiem?tu-khoa=${keyword.trim()}`);
+    router.push(`/san-pham?keyword=${keyword.trim()}`);
   }, [keyword, router]);
 
   useOutsideClick({

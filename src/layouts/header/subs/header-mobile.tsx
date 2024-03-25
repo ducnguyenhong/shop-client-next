@@ -1,3 +1,4 @@
+import { cartAtom } from '@/states/recoil';
 import { HEADER_HEIGHT } from '@/utils/const';
 import {
   Button,
@@ -23,18 +24,16 @@ import { FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
 import { IoMdApps } from 'react-icons/io';
 import { IoCart, IoNewspaper } from 'react-icons/io5';
+import { useRecoilValue } from 'recoil';
+import UserButton from './user-button';
 
 const HeaderMobile: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [keyword, setKeyword] = useState<string>('');
   const router = useRouter();
+  const cart = useRecoilValue(cartAtom);
 
   const DATA_MENU = [
-    {
-      title: 'Giỏ hàng của tôi',
-      href: '/gio-hang',
-      icon: <Icon as={IoCart} w={4} />
-    },
     {
       title: 'Sản phẩm',
       href: '/san-pham',
@@ -64,8 +63,9 @@ const HeaderMobile: React.FC = () => {
     if (!keyword) {
       return;
     }
-    router.push(`/tim-kiem?tu-khoa=${keyword.trim()}`);
-  }, [keyword, router]);
+    onClose();
+    router.push(`/san-pham?keyword=${keyword.trim()}`);
+  }, [keyword, onClose, router]);
 
   return (
     <Flex
@@ -90,11 +90,9 @@ const HeaderMobile: React.FC = () => {
         </Text>
       </Link>
 
-      <button>
-        <Image src="/images/user.png" alt="logo" width={32} height={32} />
-      </button>
+      <UserButton />
 
-      <Drawer isOpen={isOpen} placement="left" size="xs" onClose={onClose}>
+      <Drawer isOpen={isOpen} placement="left" size="xs" onClose={onClose} autoFocus={false}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton mt={2} />
@@ -138,12 +136,28 @@ const HeaderMobile: React.FC = () => {
               </Button>
             </Flex>
 
+            <Flex mt={5}>
+              <Link href="/gio-hang" onClick={onClose}>
+                <Flex align="center" gap={2}>
+                  <Icon as={IoCart} w={4} />
+                  <Text as="span" fontWeight={600}>
+                    Giỏ hàng của tôi{' '}
+                    <Text as="span" color="sub.2">
+                      ({cart.length})
+                    </Text>
+                  </Text>
+                </Flex>
+              </Link>
+            </Flex>
+
+            <Divider mt={5} />
+
             <Flex direction="column" gap={3} mt={5}>
               {DATA_MENU.map((item) => {
                 const { title, href, icon } = item;
                 return (
                   <Flex key={href}>
-                    <Link href={href}>
+                    <Link href={href} onClick={onClose}>
                       <Flex align="center" gap={2}>
                         {icon}
                         <Text as="span" fontWeight={600}>
@@ -163,7 +177,7 @@ const HeaderMobile: React.FC = () => {
                 const { title, href, icon } = item;
                 return (
                   <Flex key={href}>
-                    <Link href={href}>
+                    <Link href={href} onClick={onClose}>
                       <Flex align="center" gap={2}>
                         {icon}
                         <Text as="span" fontWeight={600}>

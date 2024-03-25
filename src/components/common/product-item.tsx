@@ -136,20 +136,29 @@ const ProductItem: React.FC<Props> = (props) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Thêm sản phẩm vào giỏ hàng</DrawerHeader>
+          <DrawerHeader>
+            <Text fontSize={{ xs: 16, md: 18, lg: 20 }}>Thêm sản phẩm vào giỏ hàng</Text>
+          </DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody px={4}>
             <Flex direction="column">
-              <AspectRatio ratio={1 / 1} borderTopRadius={2} overflow="hidden" w={2 / 3} mx="auto">
+              <AspectRatio ratio={4 / 3} borderTopRadius={2} overflow="hidden" w={{ xs: '80%', md: 2 / 3 }} mx="auto">
                 <Image src={image} alt={name} objectFit="contain" w="full" />
               </AspectRatio>
               <Flex direction="column" align="center" p={2.5} mt={5}>
-                <Text noOfLines={2} fontSize={18} fontWeight={600} lineHeight="18px" h="36px">
+                <Text
+                  noOfLines={2}
+                  fontSize={{ xs: 15, lg: 18 }}
+                  textAlign="center"
+                  fontWeight={600}
+                  lineHeight="18px"
+                  h="36px"
+                >
                   {name}
                 </Text>
                 <Flex justify="space-between" align="flex-end">
                   <Box mt={2}>
-                    <Text color="#D3232A" fontWeight={600} fontSize={18}>
+                    <Text color="#D3232A" fontWeight={600} fontSize={{ xs: 15, lg: 18 }}>
                       {formatCurrency(price)}
                     </Text>
                   </Box>
@@ -163,8 +172,8 @@ const ProductItem: React.FC<Props> = (props) => {
               <Flex justify="center">
                 <InDecreaser onChange={(data) => setCount(data)} />
               </Flex>
-              <Flex justify="center" gap={5}>
-                <Button variant="outline" onClick={onClose} colorScheme="green">
+              <Flex justify="center" gap={5} direction={{ xs: 'column', md: 'row' }}>
+                <Button variant="outline" onClick={onClose} colorScheme="green" display={{ xs: 'none', md: 'flex' }}>
                   Xem chi tiết
                 </Button>
                 <Button colorScheme="green" onClick={onAddCart}>

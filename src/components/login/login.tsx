@@ -30,10 +30,17 @@ const LoginComponent: React.FC = () => {
     <Box pt={5}>
       <Breadcrumb items={[{ title: 'Đăng nhập', href: '/dang-nhap' }]} />
 
-      <Flex justify="center" align="center" pt={20} pb={10}>
+      <Flex justify="center" align="center" pt={{ xs: 10, md: 20 }} pb={10}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Flex direction="column" p={10} borderRadius={10} boxShadow="xl" gap={10} w="550px">
-            <Text textAlign="center" fontWeight={700} fontSize={24} color="main.1">
+          <Flex
+            direction="column"
+            p={{ xs: 0, md: 10 }}
+            borderRadius={10}
+            boxShadow={{ xs: 'none', md: 'xl' }}
+            gap={10}
+            w={{ xs: '300px', md: '550px' }}
+          >
+            <Text textAlign="center" fontWeight={700} fontSize={{ xs: 20, md: 24 }}>
               Đăng nhập
             </Text>
 
@@ -55,7 +62,7 @@ const LoginComponent: React.FC = () => {
               )}
             </Flex>
 
-            <Button type="submit" colorScheme="orange" isLoading={isPending}>
+            <Button type="submit" colorScheme="green" isLoading={isPending}>
               Đăng nhập
             </Button>
 
