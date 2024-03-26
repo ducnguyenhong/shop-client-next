@@ -9,7 +9,7 @@ interface Props {
   defaultValue?: number;
 }
 
-const InDecreaser: React.FC<Props> = (props) => {
+const Counter: React.FC<Props> = (props) => {
   const { onChange, defaultValue } = props;
   const [count, setCount] = useState(1);
 
@@ -51,4 +51,4 @@ const InDecreaser: React.FC<Props> = (props) => {
   );
 };
 
-export default memo(InDecreaser);
+export default memo(Counter);

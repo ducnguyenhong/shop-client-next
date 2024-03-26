@@ -55,7 +55,7 @@ const UserButton: React.FC = () => {
               </button>
             </Box>
 
-            <Flex display={{ xs: 'none', lg: 'block' }} onClick={onToggle} cursor="pointer" align="center" gap={1.5}>
+            <Flex display={{ xs: 'none', lg: 'flex' }} onClick={onToggle} cursor="pointer" align="center" gap={1.5}>
               <Text as="span" color="#FFF" fontWeight={600}>
                 Nguyễn Đức
               </Text>

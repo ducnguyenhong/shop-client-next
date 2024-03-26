@@ -1,7 +1,7 @@
 import { formatCurrency } from '@/utils/helper';
 import { AspectRatio, Flex, Image, Td, Text, Tr } from '@chakra-ui/react';
 import { memo } from 'react';
-import InDecreaser from '../common/in-decreaser';
+import Counter from '../common/counter';
 
 interface Props {
   item: any;
@@ -35,7 +35,7 @@ const CartItem: React.FC<Props> = ({ item }) => {
         </Flex>
       </Td>
       <Td>
-        <InDecreaser />
+        <Counter />
       </Td>
       <Td>
         <Flex gap={2} alignItems="center">

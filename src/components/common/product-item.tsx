@@ -26,7 +26,7 @@ import { memo, useCallback, useState } from 'react';
 import { IoCart } from 'react-icons/io5';
 import { MdStar } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
-import InDecreaser from './in-decreaser';
+import Counter from './in-decreaser';
 
 interface Props {
   data: Product;
@@ -170,7 +170,7 @@ const ProductItem: React.FC<Props> = (props) => {
           <DrawerFooter justifyContent="center">
             <Flex direction="column" justify="center" gap={8} pb={5}>
               <Flex justify="center">
-                <InDecreaser onChange={(data) => setCount(data)} />
+                <Counter onChange={(data) => setCount(data)} />
               </Flex>
               <Flex justify="center" gap={5} direction={{ xs: 'column', md: 'row' }}>
                 <Button variant="outline" onClick={onClose} colorScheme="green" display={{ xs: 'none', md: 'flex' }}>
