@@ -23,7 +23,7 @@ import { BsList } from 'react-icons/bs';
 import { FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
 import { IoMdApps } from 'react-icons/io';
-import { IoCart, IoNewspaper } from 'react-icons/io5';
+import { IoCart, IoHome, IoNewspaper } from 'react-icons/io5';
 import { useRecoilValue } from 'recoil';
 import UserButton from './user-button';
 
@@ -34,6 +34,11 @@ const HeaderMobile: React.FC = () => {
   const cart = useRecoilValue(cartAtom);
 
   const DATA_MENU = [
+    {
+      title: 'Trang chủ',
+      href: '/',
+      icon: <Icon as={IoHome} w={4} fontSize={13} />
+    },
     {
       title: 'Sản phẩm',
       href: '/san-pham',
@@ -98,10 +103,12 @@ const HeaderMobile: React.FC = () => {
         <DrawerContent>
           <DrawerCloseButton mt={2} />
           <DrawerHeader bgColor="#f5f5f5" py={4}>
-            <Flex align="center" gap={3}>
-              <Image src="/images/logo.png" alt="logo" width={30} height={30} />
-              <Text mt={1}>Thực Phẩm Việt</Text>
-            </Flex>
+            <Link href="/" onClick={onClose}>
+              <Flex align="center" gap={3}>
+                <Image src="/images/logo.png" alt="logo" width={30} height={30} />
+                <Text mt={1}>Thực Phẩm Việt</Text>
+              </Flex>
+            </Link>
           </DrawerHeader>
 
           <DrawerBody pt={4} px={4}>

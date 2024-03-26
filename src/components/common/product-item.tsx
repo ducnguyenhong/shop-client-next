@@ -26,7 +26,7 @@ import { memo, useCallback, useState } from 'react';
 import { IoCart } from 'react-icons/io5';
 import { MdStar } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
-import Counter from './in-decreaser';
+import Counter from './counter';
 
 interface Props {
   data: Product;

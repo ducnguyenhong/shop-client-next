@@ -17,8 +17,8 @@ const NewsDetailComponent: React.FC<{ id: string }> = ({ id }) => {
         ]}
       />
 
-      <Box mt={10}>
-        <Text fontWeight={700} lineHeight="30px" fontSize={22}>
+      <Box mt={{ xs: 5, lg: 10 }}>
+        <Text fontWeight={700} lineHeight={{ xs: '26px', lg: '30px' }} fontSize={{ xs: 18, md: 20, lg: 22 }}>
           Tws Tai Nghe Chụp Tai bluetooth 5.2 Âm Thanh hifi Kiểu Dáng Thể Thao
         </Text>
 
@@ -29,7 +29,7 @@ const NewsDetailComponent: React.FC<{ id: string }> = ({ id }) => {
           </Text>
         </Flex>
 
-        <Text fontWeight={500} lineHeight="22px" mt={8} fontSize={14}>
+        <Text fontWeight={500} lineHeight="22px" mt={{ xs: 6, lg: 8 }} fontSize={14}>
           Tws Tai Nghe Chụp Tai bluetooth 5.2 Âm Thanh hifi Kiểu Dáng Thể Thao Tws Tai Nghe Chụp Tai bluetooth 5.2 Âm
           Thanh hifi Kiểu Dáng Thể Thao Tws Tai Nghe Chụp Tai bluetooth 5.2 Âm Thanh hifi Kiểu Dáng Thể Thao Thanh hifi
           Kiểu Dáng Thể Thao Tws Tai Nghe Chụp Tai bluetooth 5.2 Âm Thanh hifi Kiểu Dáng Thể Thao Thanh hifi Kiểu Dáng
