@@ -1,31 +1,50 @@
-import { formatCurrency } from '@/utils/helper';
+import { cartAtom } from '@/states/recoil';
+import { convertSlugURL, formatCurrency } from '@/utils/helper';
 import { AspectRatio, Flex, Image, Td, Text, Tr } from '@chakra-ui/react';
-import { memo } from 'react';
+import Link from 'next/link';
+import { memo, useCallback } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import Counter from '../common/counter';
+import { cartDeleteAtom } from './cart.recoil';
 
 interface Props {
   item: any;
 }
 
 const CartItem: React.FC<Props> = ({ item }) => {
-  const {
-    id,
-    image = 'https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg',
-    name = 'Sản phẩm 1',
-    price = 100000
-  } = item;
+  const { id, quantity, image, name, price } = item;
+  const [cart, setCart] = useRecoilState(cartAtom);
+  const setCartDelete = useSetRecoilState(cartDeleteAtom);
+
+  const onChangeCount = useCallback(
+    (count: number) => {
+      const newCart = cart.map((i) => {
+        if (i.id === id) {
+          return {
+            id,
+            quantity: count
+          };
+        }
+        return i;
+      });
+      setCart(newCart);
+    },
+    [cart, id, setCart]
+  );
 
   return (
     <Tr>
       <Td>
-        <Flex gap={2} flexDirection="column">
-          <AspectRatio ratio={4 / 3} w={20} boxShadow="xs" borderRadius={4}>
-            <Image src={image} alt={name} />
-          </AspectRatio>
-          <Text as="span" fontWeight={600}>
-            {name}
-          </Text>
-        </Flex>
+        <Link href={`/san-pham/${convertSlugURL(name)}.1`} target="_blank" rel="noopener noreferrer">
+          <Flex gap={2} flexDirection="column">
+            <AspectRatio ratio={4 / 3} w={20} boxShadow="xs" borderRadius={4}>
+              <Image src={image} alt={name} />
+            </AspectRatio>
+            <Text as="span" fontWeight={600}>
+              {name}
+            </Text>
+          </Flex>
+        </Link>
       </Td>
       <Td>
         <Flex gap={2} alignItems="center">
@@ -35,17 +54,17 @@ const CartItem: React.FC<Props> = ({ item }) => {
         </Flex>
       </Td>
       <Td>
-        <Counter />
+        <Counter onChange={onChangeCount} defaultValue={quantity} />
       </Td>
       <Td>
         <Flex gap={2} alignItems="center">
           <Text color="#1c78ce" fontWeight={600} fontSize={16}>
-            {formatCurrency(price)}
+            {formatCurrency(price * quantity)}
           </Text>
         </Flex>
       </Td>
       <Td>
-        <button>
+        <button onClick={() => setCartDelete({ show: true, id })}>
           <Text as="span" color="red" fontWeight={500} fontSize={14}>
             Xoá
           </Text>

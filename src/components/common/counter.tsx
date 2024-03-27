@@ -19,15 +19,15 @@ const Counter: React.FC<Props> = (props) => {
     }
   }, [defaultValue]);
 
-  useEffect(() => {
-    if (onChange) {
-      onChange(count);
-    }
-  }, [count, onChange]);
-
   return (
     <Flex align="center" gap={4}>
-      <button onClick={() => setCount((prev) => (prev < 2 ? 1 : prev - 1))}>
+      <button
+        onClick={() => {
+          const newCount = count < 2 ? 1 : count - 1;
+          setCount(newCount);
+          onChange && onChange(newCount);
+        }}
+      >
         <Icon as={IoRemoveCircleOutline} fontSize={30} color="sub.1" mt={1} />
       </button>
       <Input
@@ -38,11 +38,17 @@ const Counter: React.FC<Props> = (props) => {
         value={count}
         fontWeight={600}
         fontSize={16}
-        onChange={(e) => setCount(Number(e.target.value))}
+        onChange={(e) => {
+          const newCount = Number(e.target.value);
+          setCount(newCount);
+          onChange && onChange(newCount);
+        }}
       />
       <button
         onClick={() => {
-          setCount((prev) => prev + 1);
+          const newCount = count + 1;
+          setCount(newCount);
+          onChange && onChange(newCount);
         }}
       >
         <Icon as={IoAddCircleOutline} fontSize={30} color="sub.1" mt={1} />
