@@ -35,7 +35,7 @@ const ModalConfirm: React.FC<Props> = (props) => {
   }, [onOpen, show]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onCloseModal}>
+    <Modal isOpen={isOpen} onClose={onCloseModal} size="xl">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
@@ -62,7 +62,7 @@ const ModalConfirm: React.FC<Props> = (props) => {
               onCloseModal();
             }}
           >
-            Xác nhân đặt hàng
+            Xác nhận đặt hàng
           </Button>
         </ModalFooter>
       </ModalContent>

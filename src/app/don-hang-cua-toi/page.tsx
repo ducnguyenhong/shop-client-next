@@ -1,8 +1,10 @@
-import HistoryOrderComponent from '@/components/history-order/history-order';
 import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 
-const HistoryOrder: NextPage = () => {
-  return <HistoryOrderComponent />;
+const MyOrderComponent = dynamic(() => import('@/components/my-order/my-order'), { ssr: false });
+
+const MyOrder: NextPage = () => {
+  return <MyOrderComponent />;
 };
 
-export default HistoryOrder;
+export default MyOrder;
