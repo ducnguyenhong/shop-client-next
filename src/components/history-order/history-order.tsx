@@ -6,8 +6,8 @@ import Pagination from '../common/pagination';
 const HistoryOrderComponent: React.FC = () => {
   return (
     <Box pt={5}>
-      <Breadcrumb items={[{ title: 'Lịch sử mua hàng', href: '/lich-su-mua-hang' }]} />
-      <PageSection title="Lịch sử mua hàng" />
+      <Breadcrumb items={[{ title: 'Đơn hàng của tôi', href: '/don-hang-cua-toi' }]} />
+      <PageSection title="Đơn hàng của tôi" />
 
       <Box mt={10}>haha</Box>
       <Flex mt={14} justify="flex-end">

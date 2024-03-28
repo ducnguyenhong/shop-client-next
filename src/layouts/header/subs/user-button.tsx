@@ -28,9 +28,9 @@ const UserButton: React.FC = () => {
       href: '/thong-tin-ca-nhan'
     },
     {
-      title: 'Lịch sử mua hàng',
+      title: 'Đơn hàng của tôi',
       icon: FaHistory,
-      href: '/lich-su-mua-hang'
+      href: '/don-hang-cua-toi'
     },
     {
       title: 'Sản phẩm yêu thích',

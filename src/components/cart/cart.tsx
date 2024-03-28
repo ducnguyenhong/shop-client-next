@@ -5,6 +5,7 @@ import { formatCurrency } from '@/utils/helper';
 import { useScrollTop } from '@/utils/hooks';
 import { Box, Button, Flex, Table, TableContainer, Tbody, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { NextPage } from 'next';
+import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { IoCard } from 'react-icons/io5';
 import { useRecoilValue } from 'recoil';
@@ -15,6 +16,7 @@ import ModalDeleteCart from './modal-delete';
 
 const CartComponent: NextPage = () => {
   const cart = useRecoilValue(cartAtom);
+  const router = useRouter();
 
   const cartFromApi = cart.map((i) => ({
     ...i,
@@ -69,7 +71,12 @@ const CartComponent: NextPage = () => {
             </Text>
           </Flex>
 
-          <Button leftIcon={<IoCard />} colorScheme="green">
+          <Button
+            leftIcon={<IoCard />}
+            colorScheme="green"
+            isDisabled={!cart.length}
+            onClick={() => router.push('/thanh-toan')}
+          >
             Thanh toán
           </Button>
         </Flex>

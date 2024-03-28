@@ -69,7 +69,7 @@ const ProductItem: React.FC<Props> = (props) => {
         });
       }
       setCart(newCart);
-      showToast({ content: 'Thêm sản phẩm thành công', status: 'success' });
+      showToast({ content: 'Thêm sản phẩm thành công', status: 'warning' });
     } catch (error) {}
     onClose();
   }, [cart, count, id, onClose, setCart]);
