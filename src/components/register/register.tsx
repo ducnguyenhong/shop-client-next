@@ -1,8 +1,10 @@
 'use client';
 
-import { useMutateLogin } from '@/queries/login.query';
+import { useMutateRegister } from '@/queries/auth.query';
+import { showToast } from '@/utils/helper';
 import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Breadcrumb from '../common/breadcrumb';
@@ -20,15 +22,30 @@ const RegisterComponent: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setError
   } = useForm<Inputs>();
+  const { mutateAsync: registerMutate, isPending } = useMutateRegister();
+  const router = useRouter();
 
-  const { mutateAsync: loginMutate, isPending } = useMutateLogin();
-
-  const onSubmit: SubmitHandler<Inputs> = useCallback((data) => {
-    // loginMutate(data)
-    console.log(data);
-  }, []);
+  const onSubmit: SubmitHandler<Inputs> = useCallback(
+    (data) => {
+      const { password, confPassword, email, phone, address, fullName } = data;
+      if (password !== confPassword) {
+        setError('confPassword', { message: 'Xác nhận mật khẩu không đúng' });
+        return;
+      }
+      registerMutate({ password, email, phone, address, fullName })
+        .then(() => {
+          showToast({ status: 'warning', content: 'Đăng ký tài khoản thành công' });
+          router.push('/dang-nhap');
+        })
+        .catch((e) => {
+          showToast({ status: 'error', content: `Đăng ký thất bại. ${e.message}` });
+        });
+    },
+    [registerMutate, router, setError]
+  );
 
   return (
     <Box pt={5}>
@@ -48,6 +65,9 @@ const RegisterComponent: React.FC = () => {
             </Text>
 
             <Flex direction="column">
+              <Text fontWeight={700} mb={1}>
+                Email
+              </Text>
               <Input placeholder="Email" {...register('email', { required: true })} />
               {errors.email && (
                 <Text as="span" color="red" mt={0.5}>
@@ -57,6 +77,9 @@ const RegisterComponent: React.FC = () => {
             </Flex>
 
             <Flex direction="column">
+              <Text fontWeight={700} mb={1}>
+                Mật khẩu
+              </Text>
               <Input type="password" placeholder="Mật khẩu" {...register('password', { required: true })} />
               {errors.password && (
                 <Text as="span" color="red" mt={0.5}>
@@ -66,19 +89,25 @@ const RegisterComponent: React.FC = () => {
             </Flex>
 
             <Flex direction="column">
+              <Text fontWeight={700} mb={1}>
+                Nhập lại mật khẩu
+              </Text>
               <Input
                 type="password"
                 placeholder="Nhập lại mật khẩu"
-                {...register('confPassword', { required: true })}
+                {...register('confPassword', { required: 'Vui lòng nhập lại mật khẩu' })}
               />
               {errors.confPassword && (
                 <Text as="span" color="red" mt={0.5}>
-                  Vui lòng nhập lại mật khẩu
+                  {errors.confPassword.message}
                 </Text>
               )}
             </Flex>
 
             <Flex direction="column">
+              <Text fontWeight={700} mb={1}>
+                Họ và tên
+              </Text>
               <Input placeholder="Họ và tên" {...register('fullName', { required: true })} />
               {errors.fullName && (
                 <Text as="span" color="red" mt={0.5}>
@@ -88,6 +117,9 @@ const RegisterComponent: React.FC = () => {
             </Flex>
 
             <Flex direction="column">
+              <Text fontWeight={700} mb={1}>
+                Số điện thoại
+              </Text>
               <Input placeholder="Số điện thoại" {...register('phone', { required: true })} />
               {errors.phone && (
                 <Text as="span" color="red" mt={0.5}>
@@ -97,6 +129,9 @@ const RegisterComponent: React.FC = () => {
             </Flex>
 
             <Flex direction="column">
+              <Text fontWeight={700} mb={1}>
+                Địa chỉ
+              </Text>
               <Input placeholder="Địa chỉ" {...register('address', { required: true })} />
               {errors.address && (
                 <Text as="span" color="red" mt={0.5}>

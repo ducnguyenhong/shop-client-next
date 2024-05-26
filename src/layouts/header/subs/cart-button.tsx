@@ -15,7 +15,7 @@ const CartButton: React.FC = () => {
     <Link href="/gio-hang">
       <Box pos="relative" _hover={{ transform: 'scale(1.05)' }} transitionDuration="150ms">
         <button>
-          <Icon as={IoCart} fontSize={22} mt={0.5} color="#FFF" />
+          <Icon as={IoCart} fontSize={22} color="#FFF" />
         </button>
         {!!cartCount && (
           <Flex

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutateLogin } from '@/queries/login.query';
+import { useMutateLogin } from '@/queries/auth.query';
 import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useCallback } from 'react';
@@ -21,10 +21,13 @@ const LoginComponent: React.FC = () => {
 
   const { mutateAsync: loginMutate, isPending } = useMutateLogin();
 
-  const onSubmit: SubmitHandler<Inputs> = useCallback((data) => {
-    // loginMutate(data)
-    console.log(data);
-  }, []);
+  const onSubmit: SubmitHandler<Inputs> = useCallback(
+    (data) => {
+      const { email, password } = data;
+      loginMutate({ password, username: email });
+    },
+    [loginMutate]
+  );
 
   return (
     <Box pt={5}>
@@ -45,15 +48,21 @@ const LoginComponent: React.FC = () => {
             </Text>
 
             <Flex direction="column">
+              <Text fontWeight={700} mb={1}>
+                Email hoặc số điện thoại
+              </Text>
               <Input placeholder="Email" {...register('email', { required: true })} />
               {errors.email && (
                 <Text as="span" color="red" mt={0.5}>
-                  Vui lòng nhập email
+                  Vui lòng nhập thông tin
                 </Text>
               )}
             </Flex>
 
             <Flex direction="column">
+              <Text fontWeight={700} mb={1}>
+                Mật khẩu
+              </Text>
               <Input type="password" placeholder="Mật khẩu" {...register('password', { required: true })} />
               {errors.password && (
                 <Text as="span" color="red" mt={0.5}>
