@@ -12,7 +12,7 @@ interface Props {
 }
 
 const CartItem: React.FC<Props> = ({ item }) => {
-  const { id, quantity, image, name, price } = item;
+  const { id, quantity, imagesUrl, name, price } = item;
   const [cart, setCart] = useRecoilState(cartAtom);
   const setCartDelete = useSetRecoilState(cartDeleteAtom);
 
@@ -38,7 +38,7 @@ const CartItem: React.FC<Props> = ({ item }) => {
         <Link href={`/san-pham/${convertSlugURL(name)}.1`} target="_blank" rel="noopener noreferrer">
           <Flex gap={2} flexDirection="column">
             <AspectRatio ratio={4 / 3} w={20} boxShadow="xs" borderRadius={4}>
-              <Image src={image} alt={name} />
+              <Image src={imagesUrl?.[0]} alt={name} />
             </AspectRatio>
             <Text as="span" fontWeight={600}>
               {name}

@@ -1,12 +1,15 @@
 'use client';
 
-import { cartAtom } from '@/states/recoil';
+import { useCreateOrder, useQueryProductInCart } from '@/queries/product.query';
+import { cartAtom, userInfoAtom } from '@/states/recoil';
 import { formatCurrency, showToast } from '@/utils/helper';
-import { Box, Button, Flex, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react';
+import { useScrollTop } from '@/utils/hooks';
+import { Box, Button, Flex, Input, Radio, RadioGroup, Stack, Text, Textarea } from '@chakra-ui/react';
+import { isEmpty } from 'lodash';
 import { useRouter } from 'next/navigation';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Breadcrumb from '../common/breadcrumb';
 import PageSection from '../common/page-section';
 import ModalConfirm from './modal-confirm';
@@ -16,13 +19,21 @@ const PaymentComponent: React.FC = () => {
   const [paymentMethod, setPaymentMethod] = useState<'BANK' | 'COD'>('BANK');
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const router = useRouter();
+  const userInfo = useRecoilValue(userInfoAtom);
+  const { address, fullName, phone, email, id: userId } = userInfo || {};
+  const { data: productList = [] } = useQueryProductInCart();
+  const { mutateAsync: createOrderMutate, isPending } = useCreateOrder();
 
-  const cartFromApi = cart.map((i) => ({
-    ...i,
-    price: 100_000,
-    image: 'https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg',
-    name: 'Sản phẩm 1'
-  }));
+  const [addressOrder, setAddressOrder] = useState(() => address);
+  const [fullNameOrder, setFullNameOrder] = useState('');
+  const [phoneOrder, setPhoneOrder] = useState('');
+  const [emailOrder, setEmailOrder] = useState('');
+  const [noteOrder, setNoteOrder] = useState('');
+
+  const cartFromApi = cart.map((i) => {
+    const currentProduct = productList.find((p: any) => p.id === i.id);
+    return { ...currentProduct, ...i };
+  });
 
   const totalPrice = useMemo(() => {
     return cartFromApi.reduce((prev, curr) => {
@@ -32,13 +43,55 @@ const PaymentComponent: React.FC = () => {
   }, [cartFromApi]);
 
   const onConfirm = useCallback(() => {
-    setCart([]);
-    showToast({
-      content: 'Đặt hàng thành công!',
-      status: 'warning'
+    createOrderMutate({
+      addressDetail: addressOrder,
+      email: emailOrder,
+      note: noteOrder,
+      phoneNumber: phoneOrder,
+      products: cart.map((i) => ({
+        productId: i.id,
+        quantity: i.quantity
+      })),
+      receiverFullName: fullNameOrder,
+      userId
+    }).then(() => {
+      setCart([]);
+      showToast({
+        content: 'Đặt hàng thành công!',
+        status: 'warning'
+      });
+      router.push(isEmpty(userInfo) ? '/don-hang-cua-toi' : '/');
     });
-    router.push('/don-hang-cua-toi');
-  }, [router, setCart]);
+  }, [
+    addressOrder,
+    cart,
+    createOrderMutate,
+    emailOrder,
+    fullNameOrder,
+    noteOrder,
+    phoneOrder,
+    router,
+    setCart,
+    userId,
+    userInfo
+  ]);
+
+  useEffect(() => {
+    if (phone) {
+      setPhoneOrder(phone);
+    }
+    if (address) {
+      setAddressOrder(address);
+    }
+    if (email) {
+      setEmailOrder(email);
+    }
+    if (fullName) {
+      setFullNameOrder(fullName);
+    }
+  }, [address, email, fullName, phone]);
+
+  useScrollTop();
 
   return (
     <Box pt={5}>
@@ -46,7 +99,71 @@ const PaymentComponent: React.FC = () => {
       <PageSection title="Thanh toán đơn hàng" />
 
       <Box mt={{ xs: 6, lg: 10 }}>
-        <Flex direction="column" gap={{ xs: 2, lg: 10 }} pl={{ xs: 2, lg: 10 }}>
+        <Flex direction="column" gap={{ xs: 2, lg: 14 }} pl={{ xs: 2, lg: 10 }}>
+          <Flex direction="column">
+            <Text fontWeight={600} fontSize={16}>
+              • Thông tin khách hàng
+            </Text>
+            <Flex direction="column" mt={8} gap={7} pl={14}>
+              <Flex direction="column" gap={1}>
+                <Text fontWeight={600}>
+                  Họ và tên{' '}
+                  <Text as="span" color="red">
+                    *
+                  </Text>
+                </Text>
+                <Input value={fullNameOrder} onChange={(e) => setFullNameOrder(e.target.value)} />
+              </Flex>
+
+              <Flex direction="column" gap={1}>
+                <Text fontWeight={600}>
+                  Email{' '}
+                  <Text as="span" color="red">
+                    *
+                  </Text>
+                </Text>
+                <Input
+                  placeholder="Ví dụ: abc@gmail.com"
+                  value={emailOrder}
+                  onChange={(e) => setEmailOrder(e.target.value)}
+                />
+              </Flex>
+
+              <Flex direction="column" gap={1}>
+                <Text fontWeight={600}>
+                  Số điện thoại{' '}
+                  <Text as="span" color="red">
+                    *
+                  </Text>
+                </Text>
+                <Input
+                  placeholder="Ví dụ: 0987654321"
+                  value={phoneOrder}
+                  onChange={(e) => setPhoneOrder(e.target.value)}
+                />
+              </Flex>
+
+              <Flex direction="column" gap={1}>
+                <Text fontWeight={600}>
+                  Địa chỉ{' '}
+                  <Text as="span" color="red">
+                    *
+                  </Text>
+                </Text>
+                <Textarea
+                  value={addressOrder}
+                  onChange={(e) => setAddressOrder(e.target.value)}
+                  placeholder="Vui lòng nhập địa chỉ cụ thể"
+                />
+              </Flex>
+
+              <Flex direction="column" gap={1}>
+                <Text fontWeight={600}>Ghi chú</Text>
+                <Textarea value={noteOrder} onChange={(e) => setNoteOrder(e.target.value)} />
+              </Flex>
+            </Flex>
+          </Flex>
+
           <Flex align="center" gap={2}>
             <Text fontWeight={600} fontSize={16}>
               • Tổng số sản phẩm:{' '}
@@ -158,7 +275,12 @@ const PaymentComponent: React.FC = () => {
         </Flex>
       </Box>
 
-      <ModalConfirm show={showConfirm} onConfirm={onConfirm} onClose={() => setShowConfirm(false)} />
+      <ModalConfirm
+        show={showConfirm}
+        onConfirm={onConfirm}
+        onClose={() => setShowConfirm(false)}
+        isLoadingConfirm={isPending}
+      />
     </Box>
   );
 };

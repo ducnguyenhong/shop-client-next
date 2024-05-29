@@ -1,7 +1,6 @@
 'use client';
 
 import { cartAtom } from '@/states/recoil';
-import { Product } from '@/types/product.type';
 import { convertSlugURL, formatCurrency, showToast } from '@/utils/helper';
 import {
   AspectRatio,
@@ -28,20 +27,16 @@ import { MdStar } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 import Counter from './counter';
 
-interface Props {
-  data: Product;
-}
-
 interface LocalCartItem {
   id: string;
   quantity: number;
 }
 
-const ProductItem: React.FC<Props> = (props) => {
+const ProductItem: React.FC<any> = (props) => {
   const { data } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [count, setCount] = useState(1);
-  const { name, image, price, id } = data || {};
+  const { title, image, price, id, imagesUrl } = data || {};
   const [cart, setCart] = useRecoilState(cartAtom);
 
   const onAddCart = useCallback(() => {
@@ -88,13 +83,13 @@ const ProductItem: React.FC<Props> = (props) => {
       borderRadius={3}
     >
       <Box>
-        <Link href={`/san-pham/${convertSlugURL(name)}.1`}>
+        <Link href={`/san-pham/${convertSlugURL(title)}.${id}`}>
           <AspectRatio ratio={4 / 3} borderTopRadius={2} overflow="hidden">
-            <Image src={image} alt={name} objectFit="contain" w="full" />
+            <Image src={imagesUrl?.[0]} alt={title} objectFit="contain" w="full" />
           </AspectRatio>
           <Box p={2.5}>
             <Text noOfLines={2} fontWeight={600} lineHeight="18px" h="36px">
-              {name}
+              {title}
             </Text>
             <Flex justify="space-between" align="flex-end">
               <Box mt={2}>
@@ -143,7 +138,7 @@ const ProductItem: React.FC<Props> = (props) => {
           <DrawerBody px={4}>
             <Flex direction="column">
               <AspectRatio ratio={4 / 3} borderTopRadius={2} overflow="hidden" w={{ xs: '80%', md: 2 / 3 }} mx="auto">
-                <Image src={image} alt={name} objectFit="contain" w="full" />
+                <Image src={imagesUrl?.[0]} alt={title} objectFit="contain" w="full" />
               </AspectRatio>
               <Flex direction="column" align="center" p={2.5} mt={5}>
                 <Text
@@ -154,7 +149,7 @@ const ProductItem: React.FC<Props> = (props) => {
                   lineHeight="18px"
                   h="36px"
                 >
-                  {name}
+                  {title}
                 </Text>
                 <Flex justify="space-between" align="flex-end">
                   <Box mt={2}>

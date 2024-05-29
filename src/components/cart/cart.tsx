@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryProductInCart } from '@/queries/product.query';
 import { cartAtom } from '@/states/recoil';
 import { formatCurrency } from '@/utils/helper';
 import { useScrollTop } from '@/utils/hooks';
@@ -18,12 +19,12 @@ const CartComponent: NextPage = () => {
   const cart = useRecoilValue(cartAtom);
   const router = useRouter();
 
-  const cartFromApi = cart.map((i) => ({
-    ...i,
-    price: 100_000,
-    image: 'https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg',
-    name: 'Sản phẩm 1'
-  }));
+  const { data: productList = [] } = useQueryProductInCart();
+
+  const cartFromApi = cart.map((i) => {
+    const currentProduct = productList.find((p: any) => p.id === i.id);
+    return { ...currentProduct, ...i };
+  });
 
   const totalPrice = useMemo(() => {
     return cartFromApi.reduce((prev, curr) => {

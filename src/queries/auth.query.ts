@@ -1,13 +1,13 @@
-import { tokenState, userInfoAtom } from '@/states/recoil';
+import { userInfoAtom } from '@/states/recoil';
 import API from '@/utils/api-client';
+import { LS_JWT_TOKEN } from '@/utils/const';
 import { showToast } from '@/utils/helper';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { isEmpty } from 'lodash';
 import { useRouter } from 'next/navigation';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 export const useMutateLogin = () => {
-  const setToken = useSetRecoilState(tokenState);
   const setUserInfo = useSetRecoilState(userInfoAtom);
   const router = useRouter();
 
@@ -18,9 +18,9 @@ export const useMutateLogin = () => {
         method: 'POST',
         params: params
       })
-        .then((res) => {
+        .then((res: any) => {
           const token = res?.token;
-          setToken(token);
+          localStorage.setItem(LS_JWT_TOKEN, token);
 
           API.request({
             url: '/api/user'
@@ -36,12 +36,12 @@ export const useMutateLogin = () => {
   });
 };
 
-export const useQueryUserInfo = (enabled?: boolean) => {
+export const useQueryUserInfo = () => {
   const queryKey = ['GET_USER_INFO'];
   const queryClient = useQueryClient();
   const dataClient = queryClient.getQueryData(queryKey);
   const setUserInfo = useSetRecoilState(userInfoAtom);
-  const [token, setToken] = useRecoilState(tokenState);
+  const token = localStorage.getItem(LS_JWT_TOKEN);
 
   const { data, isLoading, error } = useQuery({
     queryKey,
@@ -52,7 +52,7 @@ export const useQueryUserInfo = (enabled?: boolean) => {
         setUserInfo(res);
         return res;
       }),
-    enabled: isEmpty(dataClient) && !!token && enabled
+    enabled: isEmpty(dataClient) && !!token
   });
 
   if (!isEmpty(dataClient)) {

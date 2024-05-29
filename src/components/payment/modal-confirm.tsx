@@ -17,10 +17,11 @@ interface Props {
   show: boolean;
   onConfirm: () => void;
   onClose: () => void;
+  isLoadingConfirm: boolean;
 }
 
 const ModalConfirm: React.FC<Props> = (props) => {
-  const { show, onClose, onConfirm } = props;
+  const { show, onClose, onConfirm, isLoadingConfirm } = props;
   const { isOpen, onOpen, onClose: onCloseChakra } = useDisclosure();
 
   const onCloseModal = useCallback(() => {
@@ -35,7 +36,7 @@ const ModalConfirm: React.FC<Props> = (props) => {
   }, [onOpen, show]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onCloseModal} size="xl">
+    <Modal isOpen={isOpen} onClose={onCloseModal} size="xl" isCentered autoFocus={false}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
@@ -57,6 +58,7 @@ const ModalConfirm: React.FC<Props> = (props) => {
           </Button>
           <Button
             colorScheme="green"
+            isLoading={isLoadingConfirm}
             onClick={() => {
               onConfirm();
               onCloseModal();
