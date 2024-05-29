@@ -7,10 +7,11 @@ import { IoAddCircleOutline, IoRemoveCircleOutline } from 'react-icons/io5';
 interface Props {
   onChange?: (data: number) => void;
   defaultValue?: number;
+  isConfirm?: boolean;
 }
 
 const Counter: React.FC<Props> = (props) => {
-  const { onChange, defaultValue } = props;
+  const { onChange, defaultValue, isConfirm } = props;
   const [count, setCount] = useState(1);
 
   useEffect(() => {
@@ -21,17 +22,20 @@ const Counter: React.FC<Props> = (props) => {
 
   return (
     <Flex align="center" gap={4}>
-      <button
-        onClick={() => {
-          const newCount = count < 2 ? 1 : count - 1;
-          setCount(newCount);
-          onChange && onChange(newCount);
-        }}
-      >
-        <Icon as={IoRemoveCircleOutline} fontSize={30} color="sub.1" mt={1} />
-      </button>
+      {!isConfirm && (
+        <button
+          onClick={() => {
+            const newCount = count < 2 ? 1 : count - 1;
+            setCount(newCount);
+            onChange && onChange(newCount);
+          }}
+        >
+          <Icon as={IoRemoveCircleOutline} fontSize={30} color="sub.1" mt={1} />
+        </button>
+      )}
       <Input
         px={1}
+        readOnly={isConfirm}
         textAlign="center"
         type="number"
         w={14}
@@ -44,15 +48,17 @@ const Counter: React.FC<Props> = (props) => {
           onChange && onChange(newCount);
         }}
       />
-      <button
-        onClick={() => {
-          const newCount = count + 1;
-          setCount(newCount);
-          onChange && onChange(newCount);
-        }}
-      >
-        <Icon as={IoAddCircleOutline} fontSize={30} color="sub.1" mt={1} />
-      </button>
+      {!isConfirm && (
+        <button
+          onClick={() => {
+            const newCount = count + 1;
+            setCount(newCount);
+            onChange && onChange(newCount);
+          }}
+        >
+          <Icon as={IoAddCircleOutline} fontSize={30} color="sub.1" mt={1} />
+        </button>
+      )}
     </Flex>
   );
 };

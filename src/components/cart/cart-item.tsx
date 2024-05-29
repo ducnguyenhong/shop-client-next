@@ -1,6 +1,6 @@
 import { cartAtom } from '@/states/recoil';
 import { convertSlugURL, formatCurrency } from '@/utils/helper';
-import { AspectRatio, Flex, Image, Td, Text, Tr } from '@chakra-ui/react';
+import { Flex, Image, Td, Text, Tr } from '@chakra-ui/react';
 import Link from 'next/link';
 import { memo, useCallback } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -9,9 +9,10 @@ import { cartDeleteAtom } from './cart.recoil';
 
 interface Props {
   item: any;
+  isConfirm?: boolean;
 }
 
-const CartItem: React.FC<Props> = ({ item }) => {
+const CartItem: React.FC<Props> = ({ item, isConfirm }) => {
   const { id, quantity, imagesUrl, name, price } = item;
   const [cart, setCart] = useRecoilState(cartAtom);
   const setCartDelete = useSetRecoilState(cartDeleteAtom);
@@ -37,9 +38,7 @@ const CartItem: React.FC<Props> = ({ item }) => {
       <Td>
         <Link href={`/san-pham/${convertSlugURL(name)}.1`} target="_blank" rel="noopener noreferrer">
           <Flex gap={2} flexDirection="column">
-            <AspectRatio ratio={4 / 3} w={20} boxShadow="xs" borderRadius={4}>
-              <Image src={imagesUrl?.[0]} alt={name} />
-            </AspectRatio>
+            <Image src={imagesUrl?.[0]} alt={name} style={{ width: '80px', height: '60px', objectFit: 'cover' }} />
             <Text as="span" fontWeight={600}>
               {name}
             </Text>
@@ -54,7 +53,7 @@ const CartItem: React.FC<Props> = ({ item }) => {
         </Flex>
       </Td>
       <Td>
-        <Counter onChange={onChangeCount} defaultValue={quantity} />
+        <Counter onChange={onChangeCount} defaultValue={quantity} isConfirm={isConfirm} />
       </Td>
       <Td>
         <Flex gap={2} alignItems="center">
@@ -63,13 +62,15 @@ const CartItem: React.FC<Props> = ({ item }) => {
           </Text>
         </Flex>
       </Td>
-      <Td>
-        <button onClick={() => setCartDelete({ show: true, id })}>
-          <Text as="span" color="red" fontWeight={500} fontSize={14}>
-            Xoá
-          </Text>
-        </button>
-      </Td>
+      {!isConfirm && (
+        <Td>
+          <button onClick={() => setCartDelete({ show: true, id })}>
+            <Text as="span" color="red" fontWeight={500} fontSize={14}>
+              Xoá
+            </Text>
+          </button>
+        </Td>
+      )}
     </Tr>
   );
 };

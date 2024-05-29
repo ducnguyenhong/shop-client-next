@@ -11,6 +11,7 @@ import { useMemo } from 'react';
 import { IoCard } from 'react-icons/io5';
 import { useRecoilValue } from 'recoil';
 import Breadcrumb from '../common/breadcrumb';
+import LoadingScreen from '../common/loading-screen';
 import PageSection from '../common/page-section';
 import CartItem from './cart-item';
 import ModalDeleteCart from './modal-delete';
@@ -19,7 +20,7 @@ const CartComponent: NextPage = () => {
   const cart = useRecoilValue(cartAtom);
   const router = useRouter();
 
-  const { data: productList = [] } = useQueryProductInCart();
+  const { data: productList = [], isLoading } = useQueryProductInCart();
 
   const cartFromApi = cart.map((i) => {
     const currentProduct = productList.find((p: any) => p.id === i.id);
@@ -34,6 +35,14 @@ const CartComponent: NextPage = () => {
   }, [cartFromApi]);
 
   useScrollTop();
+
+  if (isLoading) {
+    return (
+      <Box pt={20}>
+        <LoadingScreen />
+      </Box>
+    );
+  }
 
   return (
     <Box pt={5}>

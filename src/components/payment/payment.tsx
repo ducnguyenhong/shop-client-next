@@ -4,15 +4,88 @@ import { useCreateOrder, useQueryProductInCart } from '@/queries/product.query';
 import { cartAtom, userInfoAtom } from '@/states/recoil';
 import { formatCurrency, showToast } from '@/utils/helper';
 import { useScrollTop } from '@/utils/hooks';
-import { Box, Button, Flex, Input, Radio, RadioGroup, Stack, Text, Textarea } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  Radio,
+  RadioGroup,
+  Stack,
+  Table,
+  TableContainer,
+  Tbody,
+  Text,
+  Textarea,
+  Th,
+  Thead,
+  Tr
+} from '@chakra-ui/react';
 import { isEmpty } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import CartItem from '../cart/cart-item';
 import Breadcrumb from '../common/breadcrumb';
+import LoadingScreen from '../common/loading-screen';
 import PageSection from '../common/page-section';
 import ModalConfirm from './modal-confirm';
+
+const ProductsInfo = () => {
+  const [cart, setCart] = useRecoilState(cartAtom);
+  const { data: productList = [] } = useQueryProductInCart();
+
+  const cartFromApi = cart.map((i) => {
+    const currentProduct = productList.find((p: any) => p.id === i.id);
+    return { ...currentProduct, ...i };
+  });
+
+  const totalPrice = useMemo(() => {
+    return cartFromApi.reduce((prev, curr) => {
+      const { quantity, price } = curr;
+      return prev + quantity * price;
+    }, 0);
+  }, [cartFromApi]);
+
+  return (
+    <Flex direction="column" id="product-info">
+      <Text fontWeight={600} fontSize={16}>
+        • Thông tin sản phẩm:
+      </Text>
+
+      <Box mt={10}>
+        <TableContainer>
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th color="main.1">Sản phẩm</Th>
+                <Th color="main.1">Đơn giá</Th>
+                <Th color="main.1">Số lượng</Th>
+                <Th color="main.1">Thành tiền</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {cartFromApi.map((item) => (
+                <CartItem key={item.id} item={item} isConfirm />
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+        <Flex direction="column" align="flex-end" gap={10} mt={8}>
+          <Flex gap={3} align="center">
+            <Text color="main.1" fontWeight={600} fontSize={18}>
+              Tổng cộng:
+            </Text>
+            <Text color="#1c78ce" fontWeight={700} fontSize={20} mt={0.5}>
+              {formatCurrency(totalPrice)}
+            </Text>
+          </Flex>
+        </Flex>
+      </Box>
+    </Flex>
+  );
+};
 
 const PaymentComponent: React.FC = () => {
   const [cart, setCart] = useRecoilState(cartAtom);
@@ -21,7 +94,7 @@ const PaymentComponent: React.FC = () => {
   const router = useRouter();
   const userInfo = useRecoilValue(userInfoAtom);
   const { address, fullName, phone, email, id: userId } = userInfo || {};
-  const { data: productList = [] } = useQueryProductInCart();
+  const { data: productList = [], isLoading } = useQueryProductInCart();
   const { mutateAsync: createOrderMutate, isPending } = useCreateOrder();
 
   const [addressOrder, setAddressOrder] = useState(() => address);
@@ -43,7 +116,10 @@ const PaymentComponent: React.FC = () => {
   }, [cartFromApi]);
 
   const onConfirm = useCallback(() => {
+    const productsInfoElement = document.getElementById('product-info');
+
     createOrderMutate({
+      htmlContent: productsInfoElement?.innerHTML,
       addressDetail: addressOrder,
       email: emailOrder,
       note: noteOrder,
@@ -92,6 +168,14 @@ const PaymentComponent: React.FC = () => {
   }, [address, email, fullName, phone]);
 
   useScrollTop();
+
+  if (isLoading) {
+    return (
+      <Box pt={20}>
+        <LoadingScreen />
+      </Box>
+    );
+  }
 
   return (
     <Box pt={5}>
@@ -164,23 +248,7 @@ const PaymentComponent: React.FC = () => {
             </Flex>
           </Flex>
 
-          <Flex align="center" gap={2}>
-            <Text fontWeight={600} fontSize={16}>
-              • Tổng số sản phẩm:{' '}
-            </Text>
-            <Text fontWeight={700} fontSize={16} color="sub.2">
-              {cart.length}
-            </Text>
-          </Flex>
-
-          <Flex align="center" gap={2}>
-            <Text fontWeight={600} fontSize={16}>
-              • Tổng số tiền:{' '}
-            </Text>
-            <Text fontWeight={700} fontSize={16} color="sub.2">
-              {formatCurrency(totalPrice)}
-            </Text>
-          </Flex>
+          <ProductsInfo />
 
           <Flex gap={5} direction="column">
             <Text fontWeight={600} fontSize={16}>
@@ -219,13 +287,13 @@ const PaymentComponent: React.FC = () => {
                   <Text pl={{ xs: 2, md: 4 }} fontWeight={500}>
                     • Chủ tài khoản:{' '}
                     <Text as="span" fontWeight={600} color="sub.2">
-                      NGUYỄN HỒNG ĐỨC
+                      NGUYỄN VĂN A
                     </Text>
                   </Text>
                   <Text pl={{ xs: 2, md: 4 }} fontWeight={500}>
                     • Số tài khoản:{' '}
                     <Text as="span" fontWeight={600} color="sub.2">
-                      140056789999
+                      123456789999
                     </Text>
                   </Text>
                   <Text pl={{ xs: 2, md: 4 }} fontWeight={500}>
