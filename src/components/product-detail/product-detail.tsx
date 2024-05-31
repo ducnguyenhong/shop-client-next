@@ -1,11 +1,12 @@
 'use client';
 
-import { useQueryProductDetail } from '@/queries/product.query';
+import { useAddProductFavorite, useQueryProductDetail } from '@/queries/product.query';
 import { useCreateProductReview, useQueryProductReviews } from '@/queries/review.query';
 import { userInfoAtom } from '@/states/recoil';
 import { formatCurrency, showToast } from '@/utils/helper';
 import { AspectRatio, Box, Button, Flex, Icon, Image, Text, Textarea } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { isEmpty } from 'lodash';
 import NextImage from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCallback, useState } from 'react';
@@ -20,11 +21,22 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
   const [review, setReview] = useState('');
   const [rate, setRate] = useState(5);
   const { mutateAsync: createReviewMutate, isPending: loadingCreateReview } = useCreateProductReview();
+  const { mutateAsync: addFavoriteMutate, isPending: loadingAddFavorite } = useAddProductFavorite();
   const { data } = useQueryProductDetail(id);
   const { data: reviewList = [] } = useQueryProductReviews(id);
   const { imagesUrl, title, description, price } = data || {};
   const queryClient = useQueryClient();
   const userInfo = useRecoilValue(userInfoAtom);
+
+  const onAddFavorite = useCallback(() => {
+    if (isEmpty(userInfo)) {
+      showToast({ status: 'warning', content: 'Bạn cần đăng nhập để sử dụng chức năng này' });
+      return;
+    }
+    addFavoriteMutate({ productId: id }).then(() => {
+      showToast({ status: 'warning', content: 'Thêm vào danh sách yêu thích thành công' });
+    });
+  }, [addFavoriteMutate, id, userInfo]);
 
   const onCreateReview = useCallback(() => {
     const { id: userId } = userInfo || {};
@@ -56,28 +68,11 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
       />
       <Flex mt={{ xs: 0, lg: 10 }} gap={{ xs: 6, lg: 10 }} direction={{ xs: 'column', md: 'row' }}>
         <Flex flex={{ xs: 1, lg: 2 / 5 }}>
-          <AspectRatio ratio={{ xs: 4 / 3, lg: 1 / 1 }} borderTopRadius={2} overflow="hidden" w="full">
+          <AspectRatio ratio={{ xs: 4 / 3, lg: 1 / 1 }} borderTopRadius={2} overflow="hidden" w="full" maxH="400px">
             <PhotoProvider>
               <PhotoView src={imagesUrl?.[0]}>
                 <Box w="full" pos="relative">
                   <Image cursor="pointer" src={imagesUrl?.[0]} alt="product" objectFit="cover" w="full" h="full" />
-
-                  <Flex pos="absolute" bgColor="#ffffff7a" right={0} bottom={0}>
-                    <Button
-                      leftIcon={<FaRegHeart color="red" />}
-                      variant="outline"
-                      border="none"
-                      bgColor="transparent"
-                      px={3}
-                      h={8}
-                      py={0}
-                      fontSize={13}
-                      _hover={{ bgColor: 'transparent' }}
-                      _active={{ bgColor: 'transparent' }}
-                    >
-                      Thêm vào yêu thích
-                    </Button>
-                  </Flex>
                 </Box>
               </PhotoView>
             </PhotoProvider>
@@ -92,16 +87,25 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
             <Text color="#D3232A" fontWeight={600} fontSize={{ xs: 16, lg: 22 }}>
               {formatCurrency(price)}
             </Text>
-
-            <Text
-              fontWeight={500}
-              lineHeight="22px"
-              fontSize={{ xs: 14, lg: 16 }}
-              dangerouslySetInnerHTML={{ __html: description }}
-            ></Text>
           </Flex>
 
           <Flex direction="column" align={{ xs: 'center', md: 'flex-start' }} mt={8}>
+            <Button
+              mb={10}
+              px={0}
+              isDisabled={loadingAddFavorite}
+              onClick={onAddFavorite}
+              leftIcon={<FaRegHeart color="red" />}
+              variant="outline"
+              border="none"
+              bgColor="transparent"
+              py={0}
+              _hover={{ bgColor: 'transparent' }}
+              _active={{ bgColor: 'transparent' }}
+            >
+              Thêm vào yêu thích
+            </Button>
+
             <Counter />
 
             <Button colorScheme="green" mt={10}>
@@ -110,6 +114,15 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
           </Flex>
         </Flex>
       </Flex>
+
+      <Box mt={10}>
+        <Text
+          fontWeight={500}
+          lineHeight="22px"
+          fontSize={{ xs: 14, lg: 16 }}
+          dangerouslySetInnerHTML={{ __html: description }}
+        ></Text>
+      </Box>
 
       <Box mt={20}>
         <Text fontWeight={700} fontSize={20}>

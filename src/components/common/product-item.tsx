@@ -23,7 +23,6 @@ import { isEmpty } from 'lodash';
 import Link from 'next/link';
 import { memo, useCallback, useState } from 'react';
 import { IoCart } from 'react-icons/io5';
-import { MdStar } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 import Counter from './counter';
 
@@ -36,7 +35,7 @@ const ProductItem: React.FC<any> = (props) => {
   const { data } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [count, setCount] = useState(1);
-  const { title, image, price, id, imagesUrl } = data || {};
+  const { title, description, price, id, imagesUrl } = data || {};
   const [cart, setCart] = useRecoilState(cartAtom);
 
   const onAddCart = useCallback(() => {
@@ -96,11 +95,6 @@ const ProductItem: React.FC<any> = (props) => {
                 <Text color="#D3232A" fontWeight={600} fontSize={16}>
                   {formatCurrency(price)}
                 </Text>
-                <Flex align="center" gap="1px" mt={2}>
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Icon as={MdStar} key={i} color="#FFA132" fontSize={13} />
-                  ))}
-                </Flex>
               </Box>
             </Flex>
           </Box>

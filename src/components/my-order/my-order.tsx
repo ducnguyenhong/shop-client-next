@@ -1,10 +1,9 @@
 'use client';
 
 import { useQueryMyOrders } from '@/queries/order.query';
-import { Box, Flex, Table, TableContainer, Tbody, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Table, TableContainer, Tbody, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import Breadcrumb from '../common/breadcrumb';
 import PageSection from '../common/page-section';
-import Pagination from '../common/pagination';
 import OrderItem from './order-item';
 
 const MyOrderComponent: React.FC = () => {
@@ -38,10 +37,6 @@ const MyOrderComponent: React.FC = () => {
           </Table>
         </TableContainer>
       </Box>
-
-      <Flex mt={10} justify="flex-end">
-        <Pagination />
-      </Flex>
     </Box>
   );
 };

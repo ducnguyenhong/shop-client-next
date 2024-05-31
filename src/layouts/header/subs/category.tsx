@@ -47,6 +47,7 @@ const Category: React.FC = () => {
                     href={`/san-pham?categoryId=${id}`}
                     key={id}
                     style={{ paddingBottom: '10px', borderBottom: '1px solid #f2f2f2' }}
+                    onClick={onClose}
                   >
                     <Flex align="center" gap={2}>
                       {/* <Image src={image} alt={title} objectFit="contain" w={8} h={8} borderRadius="full" /> */}

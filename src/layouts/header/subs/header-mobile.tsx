@@ -23,7 +23,7 @@ import { BsList } from 'react-icons/bs';
 import { FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
 import { IoMdApps } from 'react-icons/io';
-import { IoCart, IoHome, IoNewspaper } from 'react-icons/io5';
+import { IoCart, IoHome } from 'react-icons/io5';
 import { useRecoilValue } from 'recoil';
 import UserButton from './user-button';
 
@@ -43,11 +43,6 @@ const HeaderMobile: React.FC = () => {
       title: 'Sản phẩm',
       href: '/san-pham',
       icon: <Icon as={IoMdApps} w={4} />
-    },
-    {
-      title: 'Tin tức',
-      href: '/tin-tuc',
-      icon: <Icon as={IoNewspaper} color="#4d4d4d" fontSize={13} w={4} />
     }
   ];
 

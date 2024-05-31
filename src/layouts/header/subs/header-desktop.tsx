@@ -39,6 +39,14 @@ const HeaderDesktop: React.FC = () => {
         </Flex>
 
         <Flex align="center" gap={12}>
+          <Flex align="center" gap={1.5}>
+            <Link href="/">
+              <Text fontWeight={600} color="#FFF">
+                Trang chủ
+              </Text>
+            </Link>
+          </Flex>
+
           <Category />
 
           <Flex align="center" gap={1.5}>

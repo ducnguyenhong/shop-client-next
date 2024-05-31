@@ -15,6 +15,9 @@ const ProductTop: React.FC = () => {
   const isTablet = useMediaQuery('(min-width: 577px) and (max-width : 991px)');
 
   const FINAL_DATA = useMemo(() => {
+    if (!Array.isArray(productList) || !productList.length) {
+      return [];
+    }
     if (isMobile) {
       return productList.slice(0, 4);
     }
@@ -34,7 +37,7 @@ const ProductTop: React.FC = () => {
           </Text>
         </Link>
       </Flex>
-      <Grid templateColumns={{ xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)', lg: 'repeat(5, 1fr)' }} gap={4} mt={2}>
+      <Grid templateColumns={{ xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4} mt={2}>
         {FINAL_DATA.map((item: any) => (
           <GridItem key={item.id}>
             <ProductItem data={item} />

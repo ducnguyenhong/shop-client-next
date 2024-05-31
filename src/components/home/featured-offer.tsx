@@ -3,6 +3,8 @@ import { memo } from 'react';
 import HomeSection from './home-section';
 
 const FeaturedOffer: React.FC = () => {
+  return null;
+
   return (
     <Box bgColor="#FFF" mt={{ xs: 10, lg: 20 }}>
       <HomeSection title="Sản phẩm nổi bật" />

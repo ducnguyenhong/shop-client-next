@@ -1,3 +1,6 @@
+'use client';
+
+import { useQueryCategoryList } from '@/queries/category.query';
 import { useMediaQuery } from '@/utils/hooks';
 import {
   Accordion,
@@ -12,10 +15,19 @@ import {
   Select,
   Text
 } from '@chakra-ui/react';
-import { memo } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { memo, useState } from 'react';
 
 const ProductFilter: React.FC = () => {
   const isMobile = useMediaQuery('(max-width: 576px)');
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('keyword') || '';
+  const page = searchParams.get('page') || 1;
+  const categoryId = searchParams.get('categoryId') || '';
+  const router = useRouter();
+  const { data: categoryList = [] } = useQueryCategoryList();
+
+  const [currentKeyword, setCurrentKeyword] = useState(keyword);
 
   const filterTmp = (
     <Box mt={{ xs: 5, md: 10 }}>
@@ -24,15 +36,40 @@ const ProductFilter: React.FC = () => {
           <Text fontWeight={600} fontSize={13} mb={1} color="main.1">
             Tìm kiếm
           </Text>
-          <Input placeholder="Nhập từ khoá" border="1px solid #ccc" h="38px" />
+          <Box pos="relative">
+            <Input
+              defaultValue={keyword}
+              placeholder="Nhập từ khoá"
+              border="1px solid #ccc"
+              h="38px"
+              onChange={(e) => setCurrentKeyword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  router.push(`/san-pham?keyword=${currentKeyword?.trim()}&page=${page}&categoryId=${categoryId}`);
+                }
+              }}
+            />
+          </Box>
         </GridItem>
         <GridItem>
           <Text fontWeight={600} fontSize={13} mb={1} color="main.1">
             Danh mục
           </Text>
-          <Select placeholder="Chọn loại sản phẩm" />
+          <Select
+            defaultValue={categoryId}
+            placeholder="Chọn danh mục"
+            onChange={(e) => {
+              router.push(`/san-pham?keyword=${currentKeyword?.trim()}&page=${page}&categoryId=${e.target.value}`);
+            }}
+          >
+            {categoryList?.map((i: any) => (
+              <option key={i.id} value={i.id}>
+                {i.name}
+              </option>
+            ))}
+          </Select>
         </GridItem>
-        <GridItem>
+        {/* <GridItem>
           <Text fontWeight={600} fontSize={13} mb={1} color="main.1">
             Loại sản phẩm
           </Text>
@@ -43,7 +80,7 @@ const ProductFilter: React.FC = () => {
             Hiện trạng
           </Text>
           <Select placeholder="Chọn loại sản phẩm" />
-        </GridItem>
+        </GridItem> */}
       </Grid>
     </Box>
   );
