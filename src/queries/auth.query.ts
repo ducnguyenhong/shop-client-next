@@ -41,7 +41,7 @@ export const useQueryUserInfo = () => {
   const queryClient = useQueryClient();
   const dataClient = queryClient.getQueryData(queryKey);
   const setUserInfo = useSetRecoilState(userInfoAtom);
-  const token = localStorage.getItem(LS_JWT_TOKEN);
+  const token = typeof window !== 'undefined' ? localStorage.getItem(LS_JWT_TOKEN) : '';
 
   const { data, isLoading, error } = useQuery({
     queryKey,

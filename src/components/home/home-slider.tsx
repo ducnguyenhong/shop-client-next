@@ -43,8 +43,8 @@ const HomeSlider: React.FC = () => {
         <SliderItem href="/san-pham" image="/images/banner-1.png" priority />
       </Flex>
       <Flex display={{ xs: 'none', md: 'flex' }} w="40%" direction="column" gap={3} h="full">
-        <SliderItem href="/san-pham?categoryId=1" image="/images/banner-2.png" />
-        <SliderItem href="/san-pham?categoryId=2" image="/images/banner-3.png" />
+        <SliderItem href="/san-pham?categoryId=0" image="/images/banner-2.png" />
+        <SliderItem href="/san-pham?categoryId=3" image="/images/banner-3.png" />
       </Flex>
     </Flex>
   );

@@ -65,3 +65,23 @@ export const useCreateOrder = () => {
     }
   });
 };
+
+export const useQueryProductDetail = (id?: string) => {
+  const queryKey = ['GET_PRODUCT_LIST'];
+  const queryClient = useQueryClient();
+  const dataClient = queryClient.getQueryData(queryKey);
+
+  const { data, isLoading, error } = useQuery({
+    queryKey,
+    queryFn: () =>
+      API.request({
+        url: `/api/product/get-by-id/${id}`
+      }),
+    enabled: isEmpty(dataClient) && !!id
+  });
+
+  if (!isEmpty(dataClient)) {
+    return { data: dataClient, isLoading: false, error: null };
+  }
+  return { data, isLoading, error };
+};

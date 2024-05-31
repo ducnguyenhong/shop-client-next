@@ -11,8 +11,6 @@ import HomeSection from './home-section';
 const ProductTop: React.FC = () => {
   const { data: productList = [] } = useQueryProductList();
 
-  console.log('ducnh productList', productList);
-
   const isMobile = useMediaQuery('(max-width: 576px)');
   const isTablet = useMediaQuery('(min-width: 577px) and (max-width : 991px)');
 
@@ -27,7 +25,7 @@ const ProductTop: React.FC = () => {
   }, [productList, isMobile, isTablet]);
 
   return (
-    <Box mt={{ xs: 10, lg: 12 }}>
+    <Box mt={{ xs: 10, lg: 24 }}>
       <Flex align="center" justify="space-between">
         <HomeSection title="Sản phẩm mới nhất" />
         <Link href="/san-pham">

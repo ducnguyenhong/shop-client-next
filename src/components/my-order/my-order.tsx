@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryMyOrders } from '@/queries/order.query';
 import { Box, Flex, Table, TableContainer, Tbody, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import Breadcrumb from '../common/breadcrumb';
 import PageSection from '../common/page-section';
@@ -7,71 +8,7 @@ import Pagination from '../common/pagination';
 import OrderItem from './order-item';
 
 const MyOrderComponent: React.FC = () => {
-  const DATA = [
-    {
-      id: '1',
-      status: 'INPROGRESS',
-      products: [
-        {
-          id: '1a',
-          quantity: 3,
-          price: 100_000,
-          image: 'https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg',
-          name: 'Sản phẩm 1a'
-        },
-        {
-          id: '1b',
-          quantity: 1,
-          price: 200_000,
-          image: 'https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg',
-          name: 'Sản phẩm 1b'
-        }
-      ],
-      createdAt: 1711617840000
-    },
-    {
-      id: '2',
-      status: 'DELIVERING',
-      products: [
-        {
-          id: '2a',
-          quantity: 3,
-          price: 100_000,
-          image: 'https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg',
-          name: 'Sản phẩm 2a'
-        }
-      ],
-      createdAt: 1711617840000
-    },
-    {
-      id: '3',
-      status: 'DONE',
-      products: [
-        {
-          id: '3a',
-          quantity: 3,
-          price: 100_000,
-          image: 'https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg',
-          name: 'Sản phẩm 3a'
-        }
-      ],
-      createdAt: 1711617840000
-    },
-    {
-      id: '4',
-      status: 'CANCEL',
-      products: [
-        {
-          id: '4a',
-          quantity: 3,
-          price: 100_000,
-          image: 'https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2023/05/vegetables.jpg',
-          name: 'Sản phẩm 4a'
-        }
-      ],
-      createdAt: 1711617840000
-    }
-  ];
+  const { data = [] } = useQueryMyOrders();
 
   return (
     <Box pt={5}>
@@ -94,7 +31,7 @@ const MyOrderComponent: React.FC = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {DATA.map((item) => (
+              {data?.map((item: any) => (
                 <OrderItem key={item.id} item={item} />
               ))}
             </Tbody>

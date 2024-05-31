@@ -13,7 +13,7 @@ interface Props {
 }
 
 const CartItem: React.FC<Props> = ({ item, isConfirm }) => {
-  const { id, quantity, imagesUrl, name, price } = item;
+  const { id, quantity, imagesUrl, title, price } = item;
   const [cart, setCart] = useRecoilState(cartAtom);
   const setCartDelete = useSetRecoilState(cartDeleteAtom);
 
@@ -36,11 +36,11 @@ const CartItem: React.FC<Props> = ({ item, isConfirm }) => {
   return (
     <Tr>
       <Td>
-        <Link href={`/san-pham/${convertSlugURL(name)}.1`} target="_blank" rel="noopener noreferrer">
+        <Link href={`/san-pham/${convertSlugURL(title)}.1`} target="_blank" rel="noopener noreferrer">
           <Flex gap={2} flexDirection="column">
-            <Image src={imagesUrl?.[0]} alt={name} style={{ width: '80px', height: '60px', objectFit: 'cover' }} />
+            <Image src={imagesUrl?.[0]} alt={title} style={{ width: '80px', height: '60px', objectFit: 'cover' }} />
             <Text as="span" fontWeight={600}>
-              {name}
+              {title}
             </Text>
           </Flex>
         </Link>
