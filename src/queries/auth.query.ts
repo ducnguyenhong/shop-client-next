@@ -19,6 +19,7 @@ export const useMutateLogin = () => {
         params: params
       })
         .then((res: any) => {
+          router.push('/');
           const token = res?.token;
           localStorage.setItem(LS_JWT_TOKEN, token);
 
@@ -26,7 +27,6 @@ export const useMutateLogin = () => {
             url: '/api/user'
           }).then((user) => {
             setUserInfo(user);
-            router.push('/');
           });
         })
         .catch(() => {
