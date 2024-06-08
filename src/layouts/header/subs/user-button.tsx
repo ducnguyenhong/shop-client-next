@@ -18,7 +18,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, memo, useRef } from 'react';
-import { FaHistory, FaRegHeart, FaSignOutAlt } from 'react-icons/fa';
+import { FaHistory, FaLock, FaRegHeart, FaSignOutAlt } from 'react-icons/fa';
 import { IoChevronDown } from 'react-icons/io5';
 import { useRecoilValue } from 'recoil';
 
@@ -44,6 +44,11 @@ const UserButton: React.FC = () => {
       title: 'Sản phẩm yêu thích',
       icon: FaRegHeart,
       href: '/san-pham-yeu-thich'
+    },
+    {
+      title: 'Đổi mật khẩu',
+      icon: FaLock,
+      href: '/doi-mat-khau'
     }
   ];
 

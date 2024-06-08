@@ -21,7 +21,9 @@ import {
 } from '@chakra-ui/react';
 import { isEmpty } from 'lodash';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { memo, useCallback, useState } from 'react';
+import { FaRegStar, FaStar } from 'react-icons/fa';
 import { IoCart } from 'react-icons/io5';
 import { useRecoilState } from 'recoil';
 import Counter from './counter';
@@ -35,8 +37,9 @@ const ProductItem: React.FC<any> = (props) => {
   const { data } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [count, setCount] = useState(1);
-  const { title, description, price, id, imagesUrl } = data || {};
+  const { title, rate, price, id, imagesUrl } = data || {};
   const [cart, setCart] = useRecoilState(cartAtom);
+  const router = useRouter();
 
   const onAddCart = useCallback(() => {
     try {
@@ -68,6 +71,10 @@ const ProductItem: React.FC<any> = (props) => {
     onClose();
   }, [cart, count, id, onClose, setCart]);
 
+  const onOpenProductDetail = useCallback(() => {
+    router.push(`/san-pham/${convertSlugURL(title)}.${id}`);
+  }, [id, router, title]);
+
   if (isEmpty(data)) {
     return null;
   }
@@ -95,6 +102,14 @@ const ProductItem: React.FC<any> = (props) => {
                 <Text color="#D3232A" fontWeight={600} fontSize={16}>
                   {formatCurrency(price)}
                 </Text>
+                <Flex align="center" gap="1px" mt={2}>
+                  {Array.from({ length: Math.ceil(rate) }, (_, i) => i + 1).map((i) => (
+                    <Icon as={FaStar} key={i} fontSize={13} color="#FFA132" />
+                  ))}
+                  {Array.from({ length: 5 - Math.ceil(rate) }, (_, i) => i + 1).map((i) => (
+                    <Icon as={FaRegStar} key={i} fontSize={13} color="#FFA132" />
+                  ))}
+                </Flex>
               </Box>
             </Flex>
           </Box>
@@ -162,7 +177,15 @@ const ProductItem: React.FC<any> = (props) => {
                 <Counter onChange={(data) => setCount(data)} />
               </Flex>
               <Flex justify="center" gap={5} direction={{ xs: 'column', md: 'row' }}>
-                <Button variant="outline" onClick={onClose} colorScheme="green" display={{ xs: 'none', md: 'flex' }}>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    onClose();
+                    onOpenProductDetail();
+                  }}
+                  colorScheme="green"
+                  display={{ xs: 'none', md: 'flex' }}
+                >
                   Xem chi tiết
                 </Button>
                 <Button colorScheme="green" onClick={onAddCart}>

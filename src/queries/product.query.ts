@@ -114,6 +114,20 @@ export const useAddProductFavorite = () => {
   });
 };
 
+export const useRemoveProductFavorite = () => {
+  return useMutation({
+    mutationFn: (params: Record<string, unknown>) => {
+      return API.request({
+        url: `/api/product/favorite/${params.productId}`,
+        method: 'DELETE'
+      }).catch((e) => {
+        showToast({ status: 'error', content: `Thao tác thất bại. ${e?.message}` });
+        return Promise.reject(e);
+      });
+    }
+  });
+};
+
 export const useQueryProductDetail = (id?: string) => {
   const queryKey = ['GET_PRODUCT_DETAIL', id];
   const queryClient = useQueryClient();

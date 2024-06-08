@@ -36,6 +36,63 @@ export const useMutateLogin = () => {
   });
 };
 
+export const useMutateChangePass = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (params: Record<string, unknown>) => {
+      return API.request({
+        url: '/api/auth/change-password',
+        method: 'POST',
+        params: params
+      })
+        .then((res: any) => {
+          router.push('/');
+          showToast({ status: 'warning', content: 'Thay đổi mật khẩu thành công' });
+        })
+        .catch((e) => {
+          showToast({ status: 'error', content: `Thao tác thất bại. ${e?.message}` });
+        });
+    }
+  });
+};
+
+export const useMutateForgotPass = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (params: Record<string, unknown>) => {
+      return API.request({
+        url: '/api/auth/reset-pass',
+        method: 'POST',
+        params: params
+      })
+        .then((res: any) => {
+          router.push('/');
+          showToast({ status: 'warning', content: 'Đặt lại mật khẩu thành công' });
+        })
+        .catch((e) => {
+          showToast({ status: 'error', content: `Thao tác thất bại. ${e?.message}` });
+        });
+    }
+  });
+};
+
+export const useMutateSendEmail = () => {
+  return useMutation({
+    mutationFn: (params: Record<string, unknown>) => {
+      const { username } = params;
+      return API.request({
+        url: `/api/auth/forgot-mail/user/${username}`,
+        method: 'POST'
+      }).catch((e) => {
+        showToast({ status: 'error', content: `Thao tác thất bại. ${e?.message}` });
+        return Promise.reject(e);
+      });
+    }
+  });
+};
+
 export const useQueryUserInfo = () => {
   const queryKey = ['GET_USER_INFO'];
   const queryClient = useQueryClient();

@@ -51,7 +51,7 @@ const LoginComponent: React.FC = () => {
               <Text fontWeight={700} mb={1}>
                 Email hoặc số điện thoại
               </Text>
-              <Input placeholder="Email" {...register('email', { required: true })} />
+              <Input placeholder="Email hoặc số điện thoại" {...register('email', { required: true })} />
               {errors.email && (
                 <Text as="span" color="red" mt={0.5}>
                   Vui lòng nhập thông tin
@@ -83,6 +83,14 @@ const LoginComponent: React.FC = () => {
                 </Text>
               </Link>
             </Text>
+
+            <Flex justify="center" mt={-5}>
+              <Link href="/quen-mat-khau">
+                <Text as="span" fontWeight={500} color="sub.1">
+                  Quên mật khẩu
+                </Text>
+              </Link>
+            </Flex>
           </Flex>
         </form>
       </Flex>

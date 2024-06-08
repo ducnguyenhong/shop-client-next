@@ -23,7 +23,7 @@ const CartComponent: NextPage = () => {
   const { data: productList = [], isLoading } = useQueryProductInCart();
 
   const cartFromApi = cart.map((i) => {
-    const currentProduct = productList.find((p: any) => p.id === i.id);
+    const currentProduct = productList.find((p: any) => `${p.id}` === `${i.id}`);
     return { ...currentProduct, ...i };
   });
 

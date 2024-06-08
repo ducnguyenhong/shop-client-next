@@ -2,7 +2,8 @@
 
 import { useAddProductFavorite, useQueryProductDetail } from '@/queries/product.query';
 import { useCreateProductReview, useQueryProductReviews } from '@/queries/review.query';
-import { userInfoAtom } from '@/states/recoil';
+import { cartAtom, userInfoAtom } from '@/states/recoil';
+import { LocalCartItem } from '@/types/cart.type';
 import { formatCurrency, showToast } from '@/utils/helper';
 import { AspectRatio, Box, Button, Flex, Icon, Image, Text, Textarea } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
@@ -10,9 +11,9 @@ import { isEmpty } from 'lodash';
 import NextImage from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCallback, useState } from 'react';
-import { FaRegHeart, FaRegStar, FaStar } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaRegStar, FaStar } from 'react-icons/fa';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Breadcrumb from '../common/breadcrumb';
 import Counter from '../common/counter';
 
@@ -22,11 +23,15 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
   const [rate, setRate] = useState(5);
   const { mutateAsync: createReviewMutate, isPending: loadingCreateReview } = useCreateProductReview();
   const { mutateAsync: addFavoriteMutate, isPending: loadingAddFavorite } = useAddProductFavorite();
+  const { mutateAsync: removeFavoriteMutate, isPending: loadingRemoveFavorite } = useAddProductFavorite();
   const { data } = useQueryProductDetail(id);
   const { data: reviewList = [] } = useQueryProductReviews(id);
   const { imagesUrl, title, description, price } = data || {};
   const queryClient = useQueryClient();
   const userInfo = useRecoilValue(userInfoAtom);
+  const [cart, setCart] = useRecoilState(cartAtom);
+  const [count, setCount] = useState(1);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const onAddFavorite = useCallback(() => {
     if (isEmpty(userInfo)) {
@@ -35,8 +40,49 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
     }
     addFavoriteMutate({ productId: id }).then(() => {
       showToast({ status: 'warning', content: 'Thêm vào danh sách yêu thích thành công' });
+      setIsFavorite(true);
     });
   }, [addFavoriteMutate, id, userInfo]);
+
+  const onRemoveFavorite = useCallback(() => {
+    if (isEmpty(userInfo)) {
+      showToast({ status: 'warning', content: 'Bạn cần đăng nhập để sử dụng chức năng này' });
+      return;
+    }
+    removeFavoriteMutate({ productId: id }).then(() => {
+      showToast({ status: 'warning', content: 'Bỏ yêu thích thành công' });
+      setIsFavorite(false);
+    });
+  }, [id, removeFavoriteMutate, userInfo]);
+
+  const onAddCart = useCallback(() => {
+    try {
+      const isExists = cart.find((i) => i.id === id);
+      let newCart: LocalCartItem[] = [];
+
+      if (!isExists) {
+        newCart = [
+          {
+            id,
+            quantity: count
+          },
+          ...cart
+        ];
+      } else {
+        newCart = cart.map((i) => {
+          if (i.id === id) {
+            return {
+              id,
+              quantity: count
+            };
+          }
+          return i;
+        });
+      }
+      setCart(newCart);
+      showToast({ content: 'Thêm sản phẩm thành công', status: 'warning' });
+    } catch (error) {}
+  }, [cart, count, id, setCart]);
 
   const onCreateReview = useCallback(() => {
     const { id: userId } = userInfo || {};
@@ -93,9 +139,9 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
             <Button
               mb={10}
               px={0}
-              isDisabled={loadingAddFavorite}
-              onClick={onAddFavorite}
-              leftIcon={<FaRegHeart color="red" />}
+              isDisabled={loadingAddFavorite || loadingRemoveFavorite}
+              onClick={isFavorite ? onRemoveFavorite : onAddFavorite}
+              leftIcon={isFavorite ? <FaHeart color="red" /> : <FaRegHeart color="red" />}
               variant="outline"
               border="none"
               bgColor="transparent"
@@ -103,12 +149,12 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
               _hover={{ bgColor: 'transparent' }}
               _active={{ bgColor: 'transparent' }}
             >
-              Thêm vào yêu thích
+              {isFavorite ? 'Đã thêm' : 'Thêm'} vào yêu thích
             </Button>
 
-            <Counter />
+            <Counter onChange={(data) => setCount(data)} />
 
-            <Button colorScheme="green" mt={10}>
+            <Button colorScheme="green" mt={10} onClick={onAddCart}>
               Thêm vào giỏ hàng
             </Button>
           </Flex>

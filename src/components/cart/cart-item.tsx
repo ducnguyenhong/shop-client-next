@@ -36,7 +36,7 @@ const CartItem: React.FC<Props> = ({ item, isConfirm }) => {
   return (
     <Tr>
       <Td>
-        <Link href={`/san-pham/${convertSlugURL(title)}.1`} target="_blank" rel="noopener noreferrer">
+        <Link href={`/san-pham/${convertSlugURL(title)}.${id}`} target="_blank" rel="noopener noreferrer">
           <Flex gap={2} flexDirection="column">
             <Image src={imagesUrl?.[0]} alt={title} style={{ width: '80px', height: '60px', objectFit: 'cover' }} />
             <Text as="span" fontWeight={600}>
