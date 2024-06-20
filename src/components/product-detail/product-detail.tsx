@@ -76,7 +76,7 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
           if (i.id === id) {
             return {
               id,
-              quantity: count
+              quantity: count + 1
             };
           }
           return i;
