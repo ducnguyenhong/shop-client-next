@@ -1,6 +1,6 @@
 'use client';
 
-import { useAddProductFavorite, useQueryProductDetail } from '@/queries/product.query';
+import { useAddProductFavorite, useQueryProductDetail, useRemoveProductFavorite } from '@/queries/product.query';
 import { useCreateProductReview, useQueryProductReviews } from '@/queries/review.query';
 import { cartAtom, userInfoAtom } from '@/states/recoil';
 import { LocalCartItem } from '@/types/cart.type';
@@ -10,12 +10,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import { isEmpty } from 'lodash';
 import NextImage from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FaHeart, FaRegHeart, FaRegStar, FaStar } from 'react-icons/fa';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import Breadcrumb from '../common/breadcrumb';
 import Counter from '../common/counter';
+import LoadingScreen from '../common/loading-screen';
 
 const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
   const pathname = usePathname();
@@ -23,10 +24,10 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
   const [rate, setRate] = useState(5);
   const { mutateAsync: createReviewMutate, isPending: loadingCreateReview } = useCreateProductReview();
   const { mutateAsync: addFavoriteMutate, isPending: loadingAddFavorite } = useAddProductFavorite();
-  const { mutateAsync: removeFavoriteMutate, isPending: loadingRemoveFavorite } = useAddProductFavorite();
-  const { data } = useQueryProductDetail(id);
+  const { mutateAsync: removeFavoriteMutate, isPending: loadingRemoveFavorite } = useRemoveProductFavorite();
+  const { data, isLoading } = useQueryProductDetail(id);
   const { data: reviewList = [] } = useQueryProductReviews(id);
-  const { imagesUrl, title, description, price } = data || {};
+  const { imagesUrl, title, description, price, favorite } = data || {};
   const queryClient = useQueryClient();
   const userInfo = useRecoilValue(userInfoAtom);
   const [cart, setCart] = useRecoilState(cartAtom);
@@ -41,8 +42,9 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
     addFavoriteMutate({ productId: id }).then(() => {
       showToast({ status: 'warning', content: 'Thêm vào danh sách yêu thích thành công' });
       setIsFavorite(true);
+      queryClient.resetQueries({ queryKey: ['GET_PRODUCT_FAVORITE_LIST'] });
     });
-  }, [addFavoriteMutate, id, userInfo]);
+  }, [addFavoriteMutate, id, userInfo, queryClient]);
 
   const onRemoveFavorite = useCallback(() => {
     if (isEmpty(userInfo)) {
@@ -52,8 +54,9 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
     removeFavoriteMutate({ productId: id }).then(() => {
       showToast({ status: 'warning', content: 'Bỏ yêu thích thành công' });
       setIsFavorite(false);
+      queryClient.resetQueries({ queryKey: ['GET_PRODUCT_FAVORITE_LIST'] });
     });
-  }, [id, removeFavoriteMutate, userInfo]);
+  }, [id, removeFavoriteMutate, userInfo, queryClient]);
 
   const onAddCart = useCallback(() => {
     try {
@@ -103,6 +106,20 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
         showToast({ status: 'error', content: 'Gửi đánh giá thất bại. Vui lòng thử lại sau' });
       });
   }, [createReviewMutate, id, queryClient, rate, review, userInfo]);
+
+  useEffect(() => {
+    if (!isEmpty(data)) {
+      setIsFavorite(favorite);
+    }
+  }, [data, favorite]);
+
+  if (isLoading) {
+    return (
+      <Box mt={40}>
+        <LoadingScreen />
+      </Box>
+    );
+  }
 
   return (
     <Box pt={5}>

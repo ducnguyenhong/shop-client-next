@@ -59,7 +59,7 @@ const ProductItem: React.FC<any> = (props) => {
           if (i.id === id) {
             return {
               id,
-              quantity: count
+              quantity: count + 1
             };
           }
           return i;
