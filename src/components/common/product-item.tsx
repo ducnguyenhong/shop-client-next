@@ -29,7 +29,7 @@ import { useRecoilState } from 'recoil';
 import Counter from './counter';
 
 interface LocalCartItem {
-  id: string;
+  id: any;
   quantity: number;
 }
 
@@ -43,23 +43,23 @@ const ProductItem: React.FC<any> = (props) => {
 
   const onAddCart = useCallback(() => {
     try {
-      const isExists = cart.find((i) => i.id === id);
+      const isExists = cart.find((i) => Number(i.id) === Number(id));
       let newCart: LocalCartItem[] = [];
 
       if (!isExists) {
         newCart = [
           {
-            id,
+            id: Number(id),
             quantity: count
           },
           ...cart
         ];
       } else {
         newCart = cart.map((i) => {
-          if (i.id === id) {
+          if (Number(i.id) === Number(id)) {
             return {
-              id,
-              quantity: count + 1
+              id: Number(id),
+              quantity: count + i.quantity
             };
           }
           return i;

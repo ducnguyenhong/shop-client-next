@@ -1,4 +1,4 @@
 export interface LocalCartItem {
-  id: string;
+  id: any;
   quantity: number;
 }
