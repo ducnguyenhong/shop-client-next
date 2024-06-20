@@ -82,10 +82,11 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
           return i;
         });
       }
+      queryClient.resetQueries({ queryKey: ['GET_PRODUCT_LIST_IN_CART'] });
       setCart(newCart);
       showToast({ content: 'Thêm sản phẩm thành công', status: 'warning' });
     } catch (error) {}
-  }, [cart, count, id, setCart]);
+  }, [cart, count, id, setCart, queryClient]);
 
   const onCreateReview = useCallback(() => {
     const { id: userId } = userInfo || {};

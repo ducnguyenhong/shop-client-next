@@ -19,6 +19,7 @@ import {
   Text,
   useDisclosure
 } from '@chakra-ui/react';
+import { useQueryClient } from '@tanstack/react-query';
 import { isEmpty } from 'lodash';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -40,6 +41,7 @@ const ProductItem: React.FC<any> = (props) => {
   const { title, rate, price, id, imagesUrl } = data || {};
   const [cart, setCart] = useRecoilState(cartAtom);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const onAddCart = useCallback(() => {
     try {
@@ -65,11 +67,12 @@ const ProductItem: React.FC<any> = (props) => {
           return i;
         });
       }
+      queryClient.resetQueries({ queryKey: ['GET_PRODUCT_LIST_IN_CART'] });
       setCart(newCart);
       showToast({ content: 'Thêm sản phẩm thành công', status: 'warning' });
     } catch (error) {}
     onClose();
-  }, [cart, count, id, onClose, setCart]);
+  }, [cart, count, id, onClose, setCart, queryClient]);
 
   const onOpenProductDetail = useCallback(() => {
     router.push(`/san-pham/${convertSlugURL(title)}.${id}`);

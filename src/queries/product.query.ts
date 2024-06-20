@@ -62,10 +62,11 @@ export const useQueryFavoriteProducts = () => {
 };
 
 export const useQueryProductInCart = () => {
-  const queryKey = ['GET_PRODUCT_LIST_IN_CART'];
   const queryClient = useQueryClient();
-  const dataClient = queryClient.getQueryData(queryKey);
   const cart = useRecoilValue(cartAtom);
+  const productIds = cart.map((i) => i.id).join(',');
+  const queryKey = ['GET_PRODUCT_LIST_IN_CART', productIds];
+  const dataClient = queryClient.getQueryData(queryKey);
 
   const { data, isLoading, error } = useQuery({
     queryKey,
