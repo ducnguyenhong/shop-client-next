@@ -14,7 +14,8 @@ export const useQueryMyOrders = () => {
         url: '/api/product/order/get-by-me',
         params: {
           pageNumber: 0,
-          pageSize: 100
+          pageSize: 100,
+          type: 'BUY'
         }
       }).then((res) => res?.content || []),
     enabled: isEmpty(dataClient)
