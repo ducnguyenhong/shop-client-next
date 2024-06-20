@@ -113,6 +113,12 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
     }
   }, [data, favorite]);
 
+  useEffect(() => {
+    return () => {
+      queryClient.resetQueries({ queryKey: ['GET_PRODUCT_DETAIL'] });
+    };
+  }, [queryClient]);
+
   if (isLoading) {
     return (
       <Box mt={40}>
