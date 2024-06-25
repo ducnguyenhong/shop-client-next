@@ -38,12 +38,17 @@ const ProductItem: React.FC<any> = (props) => {
   const { data } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [count, setCount] = useState(1);
-  const { title, rate, price, id, imagesUrl } = data || {};
+  const { title, rate, price, id, imagesUrl, quantity } = data || {};
   const [cart, setCart] = useRecoilState(cartAtom);
   const router = useRouter();
   const queryClient = useQueryClient();
 
   const onAddCart = useCallback(() => {
+    if (quantity < 1 || count > quantity) {
+      showToast({ status: 'warning', content: 'Số lượng sản phẩm trong kho không đủ' });
+      return;
+    }
+
     try {
       const isExists = cart.find((i) => Number(i.id) === Number(id));
       let newCart: LocalCartItem[] = [];
@@ -72,7 +77,7 @@ const ProductItem: React.FC<any> = (props) => {
       showToast({ content: 'Thêm sản phẩm thành công', status: 'warning' });
     } catch (error) {}
     onClose();
-  }, [cart, count, id, onClose, setCart, queryClient]);
+  }, [quantity, onClose, cart, queryClient, setCart, id, count]);
 
   const onOpenProductDetail = useCallback(() => {
     router.push(`/san-pham/${convertSlugURL(title)}.${id}`);

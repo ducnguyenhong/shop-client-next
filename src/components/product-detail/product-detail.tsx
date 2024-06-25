@@ -27,7 +27,7 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
   const { mutateAsync: removeFavoriteMutate, isPending: loadingRemoveFavorite } = useRemoveProductFavorite();
   const { data, isLoading } = useQueryProductDetail(id);
   const { data: reviewList = [] } = useQueryProductReviews(id);
-  const { imagesUrl, title, description, price, favorite } = data || {};
+  const { imagesUrl, title, description, price, favorite, quantity } = data || {};
   const queryClient = useQueryClient();
   const userInfo = useRecoilValue(userInfoAtom);
   const [cart, setCart] = useRecoilState(cartAtom);
@@ -59,6 +59,10 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
   }, [id, removeFavoriteMutate, userInfo, queryClient]);
 
   const onAddCart = useCallback(() => {
+    if (quantity < 1 || count > quantity) {
+      showToast({ status: 'warning', content: 'Số lượng sản phẩm trong kho không đủ' });
+      return;
+    }
     try {
       const isExists = cart.find((i) => Number(i.id) === Number(id));
       let newCart: LocalCartItem[] = [];
@@ -86,7 +90,7 @@ const ProductDetailComponent: React.FC<{ id: string }> = ({ id }) => {
       setCart(newCart);
       showToast({ content: 'Thêm sản phẩm thành công', status: 'warning' });
     } catch (error) {}
-  }, [cart, count, id, setCart, queryClient]);
+  }, [quantity, count, cart, queryClient, setCart, id]);
 
   const onCreateReview = useCallback(() => {
     const { id: userId } = userInfo || {};
